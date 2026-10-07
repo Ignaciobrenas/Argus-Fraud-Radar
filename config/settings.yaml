@@ -1,9 +1,10 @@
 seed: 42
 realtime_threshold_seconds: 2
-n_customers: 1000
-n_history_transactions: 20000
-n_stream_transactions: 5000
-fraud_rate: 0.01
+n_customers: 5000
+n_history_transactions: 100000
+n_stream_transactions: 20000
+fraud_rate: 0.012
+target_max_fpr: 0.005
 history_start: "2026-01-01"
 history_end: "2026-06-30"
 stream_start: "2026-07-01"
