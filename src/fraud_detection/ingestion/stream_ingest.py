@@ -23,7 +23,11 @@ def run_stream_ingest():
                  .withColumn("ingestion_timestamp", lit(current_time)) \
                  .withColumn("schema_version", lit("1.0.0")) \
                  .withColumn("date", to_date(col("event_timestamp")))
-    df_tx.write.mode("append").partitionBy("date").parquet(f"{bronze_path}/transactions")
+    tx_target = f"{bronze_path}/transactions"
+    import shutil
+    if os.path.exists(tx_target):
+        shutil.rmtree(tx_target, ignore_errors=True)
+    df_tx.write.mode("overwrite").partitionBy("date").parquet(tx_target)
     
     # 2. Access Logs (JSONL)
     if os.path.exists(f"{raw_path}/access_logs.jsonl"):
@@ -36,7 +40,7 @@ def run_stream_ingest():
     
     # 3. User Location (JSON)
     if os.path.exists(f"{raw_path}/user_location.json"):
-        df_loc = spark.read.json(f"{raw_path}/user_location.json")
+        df_loc = spark.read.option("multiLine", "true").json(f"{raw_path}/user_location.json")
         df_loc = df_loc.withColumn("source_system", lit("core_banking_simulator")) \
                        .withColumn("ingestion_timestamp", lit(current_time)) \
                        .withColumn("schema_version", lit("1.0.0")) \

@@ -24,7 +24,7 @@ def run_batch_ingest():
     df_cust.write.mode("overwrite").parquet(f"{bronze_path}/customer_profile")
     
     # 2. Device Data
-    df_dev = spark.read.json(f"{raw_path}/device_data.json")
+    df_dev = spark.read.option("multiLine", "true").json(f"{raw_path}/device_data.json")
     df_dev = df_dev.withColumn("source_system", lit("core_banking_simulator")) \
                    .withColumn("ingestion_timestamp", lit(current_time)) \
                    .withColumn("schema_version", lit("1.0.0"))
@@ -36,7 +36,11 @@ def run_batch_ingest():
                      .withColumn("ingestion_timestamp", lit(current_time)) \
                      .withColumn("schema_version", lit("1.0.0")) \
                      .withColumn("date", to_date(col("event_timestamp")))
-    df_hist.write.mode("overwrite").partitionBy("date").parquet(f"{bronze_path}/transaction_history")
+    hist_target = f"{bronze_path}/transaction_history"
+    import shutil
+    if os.path.exists(hist_target):
+        shutil.rmtree(hist_target, ignore_errors=True)
+    df_hist.write.mode("overwrite").partitionBy("date").parquet(hist_target)
     
     # 4. Previous Fraud Alerts
     if os.path.exists(f"{raw_path}/previous_fraud_alerts.csv"):
