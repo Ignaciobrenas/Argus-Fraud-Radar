@@ -53,8 +53,33 @@ def run_build_silver():
         else:
             logger.info("All data quality checks passed for Silver transactions.")
             
-        df_all_tx.write.mode("overwrite").parquet(f"{silver_path}/transactions")
+        silver_tx_target = f"{silver_path}/transactions"
+        import shutil
+        if os.path.exists(silver_tx_target):
+            shutil.rmtree(silver_tx_target, ignore_errors=True)
+        df_all_tx.write.mode("overwrite").parquet(silver_tx_target)
     
+    # 4. Clean User Location
+    if os.path.exists(f"{bronze_path}/user_location"):
+        logger.info("Processing user location into Silver...")
+        df_loc = spark.read.parquet(f"{bronze_path}/user_location")
+        df_loc = df_loc.dropDuplicates(["transaction_id"])
+        df_loc.write.mode("overwrite").parquet(f"{silver_path}/user_location")
+
+    # 5. Clean Access Logs
+    if os.path.exists(f"{bronze_path}/access_logs"):
+        logger.info("Processing access logs into Silver...")
+        df_logs = spark.read.parquet(f"{bronze_path}/access_logs")
+        df_logs = df_logs.dropDuplicates(["event_id"])
+        df_logs.write.mode("overwrite").parquet(f"{silver_path}/access_logs")
+
+    # 6. Previous Alerts
+    if os.path.exists(f"{bronze_path}/previous_fraud_alerts"):
+        logger.info("Processing previous fraud alerts into Silver...")
+        df_alt = spark.read.parquet(f"{bronze_path}/previous_fraud_alerts")
+        df_alt = df_alt.dropDuplicates(["alert_id"])
+        df_alt.write.mode("overwrite").parquet(f"{silver_path}/previous_fraud_alerts")
+
     logger.info("Silver layer build completed.")
     spark.stop()
 
