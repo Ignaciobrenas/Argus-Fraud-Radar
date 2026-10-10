@@ -1,20 +1,38 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo_white.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo_black.png">
+    <img alt="ARGUS Fraud Radar Logo" src="assets/logo_black.png" width="520">
+  </picture>
+</p>
+
 # 🛡️ ARGUS Fraud Radar: Enterprise Real-Time Bank Fraud Detection Platform
 **Datacycle · Unit 1 · Group 4 · Case 2: Retail Banking Real-Time Fraud Detection**
 
-[![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
-[![Apache PySpark 3.5](https://img.shields.io/badge/PySpark-3.5-E25A1C.svg?logo=apachespark&logoColor=white)](https://spark.apache.org/)
-[![LightGBM](https://img.shields.io/badge/Machine%20Learning-LightGBM-success.svg)](https://lightgbm.readthedocs.io/)
-[![FastAPI](https://img.shields.io/badge/Serving-FastAPI-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Docker](https://img.shields.io/badge/Container-Docker-2496ED.svg?logo=docker&logoColor=white)](https://www.docker.com/)
-[![CI Workflow](https://img.shields.io/badge/GitHub%20Actions-Passing-brightgreen.svg?logo=githubactions&logoColor=white)](https://github.com/Ignaciobrenas/Argus-Fraud-Radar/actions)
-[![Test Suite](https://img.shields.io/badge/Pytest-17%20Passed-brightgreen.svg?logo=pytest&logoColor=white)](https://pytest.org/)
-[![Academic Framework](https://img.shields.io/badge/STUCOM%20Pelai-DAW%202%20%7C%20MOPT2-8A2BE2.svg)](https://www.stucom.com/)
-[![European Consortium](https://img.shields.io/badge/UNITA%20Erasmus%2B-BIP%20Programme-003399.svg)](docs/en/unita_bip.md)
+<p align="center">
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.12-blue.svg?logo=python&logoColor=white" alt="Python 3.12"></a>
+  <a href="https://spark.apache.org/"><img src="https://img.shields.io/badge/PySpark-3.5-E25A1C.svg?logo=apachespark&logoColor=white" alt="PySpark 3.5"></a>
+  <a href="https://lightgbm.readthedocs.io/"><img src="https://img.shields.io/badge/Machine%20Learning-LightGBM-success.svg" alt="LightGBM"></a>
+  <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/Serving-FastAPI-009688.svg?logo=fastapi&logoColor=white" alt="FastAPI"></a>
+  <a href="https://streamlit.io/"><img src="https://img.shields.io/badge/Dashboard-Streamlit-FF4B4B.svg?logo=streamlit&logoColor=white" alt="Streamlit"></a>
+  <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Container-Docker-2496ED.svg?logo=docker&logoColor=white" alt="Docker"></a>
+  <a href="https://github.com/Ignaciobrenas/Argus-Fraud-Radar/actions"><img src="https://img.shields.io/badge/GitHub%20Actions-Passing-brightgreen.svg?logo=githubactions&logoColor=white" alt="CI Workflow"></a>
+  <a href="https://pytest.org/"><img src="https://img.shields.io/badge/Pytest-17%20Passed-brightgreen.svg?logo=pytest&logoColor=white" alt="Test Suite"></a>
+  <a href="https://www.stucom.com/"><img src="https://img.shields.io/badge/STUCOM%20Pelai-DAW%202%20%7C%20MOPT2-8A2BE2.svg" alt="STUCOM Pelai"></a>
+  <a href="docs/en/unita_bip.md"><img src="https://img.shields.io/badge/UNITA%20Erasmus%2B-BIP%20Programme-003399.svg" alt="UNITA Erasmus+ BIP"></a>
+</p>
 
 ---
 
 ## 👁️ Why ARGUS? — The Legend Behind the Fraud Radar
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/isotipo_white.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/isotipo_black.png">
+    <img alt="ARGUS Isotipo" src="assets/isotipo_black.png" width="140">
+  </picture>
+</p>
 
 > *"Argus Panoptes was endowed with a hundred eyes, never closing more than a few in slumber, watching over what was entrusted to him with unbroken vigilance."*
 
@@ -198,10 +216,15 @@ The platform evaluates three concurrent operational scenarios across **20,000 st
 ## 📁 Repository Directory & Component Map
 
 ```
-bank-fraud-detection/
+bank-fraud-detection/ (Argus-Fraud-Radar)
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                 # Automated CI: Java 17 + Python 3.12 + Pytest coverage
+├── assets/                        # Official brand identity & iconography
+│   ├── logo_black.png             # Horizontal logo (for light backgrounds)
+│   ├── logo_white.png             # Horizontal logo (for dark backgrounds)
+│   ├── isotipo_black.png          # High-resolution Argus emblem (light mode)
+│   └── isotipo_white.png          # High-resolution Argus emblem (dark mode)
 ├── config/
 │   └── settings.yaml              # Centralized YAML config: seed, rates, paths, thresholds
 ├── data/                          # Medallion storage partitions (excluded from git)

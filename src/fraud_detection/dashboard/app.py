@@ -10,15 +10,15 @@ from src.fraud_detection.analysis.kpi import real_time_fraud_pct
 
 st.set_page_config(
     layout="wide",
-    page_title="Bank Fraud Detection · Real-Time Control Center",
-    page_icon="🛡️"
+    page_title="ARGUS Fraud Radar · Real-Time Control Center",
+    page_icon="assets/isotipo_black.png" if os.path.exists("assets/isotipo_black.png") else "🛡️"
 )
 
 # Custom header styling
 st.markdown("""
-    <div style='background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
-        <h1 style='color: white; margin: 0;'>🛡️ Bank Fraud Detection System</h1>
-        <p style='color: #e0e0e0; margin: 5px 0 0 0;'>Real-time AI Streaming Pipeline · Datacycle Grupo 4 · Caso 2</p>
+    <div style='background: linear-gradient(90deg, #0f2027 0%, #203a43 50%, #2c5364 100%); padding: 22px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>
+        <h1 style='color: white; margin: 0; font-family: sans-serif; font-weight: 700;'>🛡️ ARGUS Fraud Radar · Executive Control Center</h1>
+        <p style='color: #eceff1; margin: 6px 0 0 0; font-size: 1.05rem;'>Enterprise Real-Time AI Streaming Platform · STUCOM Pelai (DAW 2) · UNITA Erasmus+ BIP</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -30,6 +30,11 @@ if not os.path.exists(alerts_path):
 df = pd.read_parquet(alerts_path)
 
 # Sidebar interactive controls
+if os.path.exists("assets/logo_white.png"):
+    st.sidebar.image("assets/logo_white.png", use_container_width=True)
+elif os.path.exists("assets/logo_black.png"):
+    st.sidebar.image("assets/logo_black.png", use_container_width=True)
+st.sidebar.markdown("---")
 st.sidebar.header("⚙️ Pipeline Controls & Thresholds")
 n_threshold = st.sidebar.slider(
     "N: Real-time Latency Threshold (seconds)",

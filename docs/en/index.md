@@ -1,7 +1,15 @@
-# Documentation Index — Bank Fraud Detection Pipeline
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../assets/logo_white.png">
+    <source media="(prefers-color-scheme: light)" srcset="../assets/logo_black.png">
+    <img alt="ARGUS Fraud Radar" src="../assets/logo_black.png" width="420">
+  </picture>
+</p>
+
+# Documentation Index — ARGUS Fraud Radar
 **Datacycle · Unit 1 · Case 2: Retail Banking Real-Time Fraud Detection**
 
-Welcome to the technical and academic documentation for the **Bank Fraud Detection** platform. This repository implements an end-to-end data and machine learning streaming architecture for real-time banking fraud detection.
+Welcome to the technical and academic documentation for **ARGUS Fraud Radar**. This repository implements an end-to-end data and machine learning streaming architecture for real-time banking fraud detection within the academic context of **STUCOM Pelai** and the European **UNITA Erasmus+ BIP** consortium.
 
 ---
 

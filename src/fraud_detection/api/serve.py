@@ -5,7 +5,11 @@ import pandas as pd
 import os
 from src.fraud_detection.config import logger
 
-app = FastAPI(title="Bank Fraud Detection Inference API", version="1.0.0")
+app = FastAPI(
+    title="ARGUS Fraud Radar Inference API",
+    version="1.0.0",
+    description="Real-time banking fraud inference microservice with sub-millisecond scoring."
+)
 
 # Load model at startup
 MODEL_PATH = "models/lgbm_model.pkl"
