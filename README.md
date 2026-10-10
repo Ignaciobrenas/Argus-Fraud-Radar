@@ -1,4 +1,4 @@
-# 🛡️ Enterprise Real-Time Bank Fraud Detection Platform
+# 🛡️ ARGUS Fraud Shield: Enterprise Real-Time Bank Fraud Detection Platform
 **Datacycle · Unit 1 · Group 4 · Case 2: Retail Banking Real-Time Fraud Detection**
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
@@ -7,10 +7,25 @@
 [![FastAPI](https://img.shields.io/badge/Serving-FastAPI-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Docker](https://img.shields.io/badge/Container-Docker-2496ED.svg?logo=docker&logoColor=white)](https://www.docker.com/)
-[![CI Workflow](https://img.shields.io/badge/GitHub%20Actions-Passing-brightgreen.svg?logo=githubactions&logoColor=white)](https://github.com/)
+[![CI Workflow](https://img.shields.io/badge/GitHub%20Actions-Passing-brightgreen.svg?logo=githubactions&logoColor=white)](https://github.com/Ignaciobrenas/argus-fraud-shield/actions)
 [![Test Suite](https://img.shields.io/badge/Pytest-17%20Passed-brightgreen.svg?logo=pytest&logoColor=white)](https://pytest.org/)
 [![Academic Framework](https://img.shields.io/badge/STUCOM%20Pelai-DAW%202%20%7C%20MOPT2-8A2BE2.svg)](https://www.stucom.com/)
 [![European Consortium](https://img.shields.io/badge/UNITA%20Erasmus%2B-BIP%20Programme-003399.svg)](docs/en/unita_bip.md)
+
+---
+
+## 👁️ Why ARGUS? — The Legend Behind the Shield
+
+> *"Argus Panoptes was endowed with a hundred eyes, never closing more than a few in slumber, watching over what was entrusted to him with unbroken vigilance."*
+
+In classical Greek mythology, **Argus Panoptes** (*Ἄργος Πανόπτης*, the *"All-Seeing"*) was the supreme celestial watchman. Because his hundred eyes rested in rotation, he never slept, maintaining perpetual 360-degree awareness against intrusion and stealth.
+
+In 21st-century digital banking, cybercrime syndicates deploy distributed attacks across fragmented vectors: automated botnets, credential stuffing against IAM gateways, synthetic identity spoofing, impossible GPS velocity jumps, and nocturnal brute-force bursts. Traditional batch security systems sleep during the business day and settle accounts overnight — creating a deadly blind spot where fraudulent funds vanish across borders within seconds.
+
+**ARGUS Fraud Shield** was engineered to resurrect that mythological unbroken vigilance in high-throughput financial architectures:
+* 👁️ **The 100 Eyes of Distributed Telemetry:** Continuous, synchronized ingestion across 7 data streams — payment transactions, device fingerprints, GPS coordinates, IP network hops, authentication logs, historical alerts, and behavioral spend baselines.
+* ⚡ **Zero-Sleep Real-Time Vigilance:** Sub-second scoring latency ($P_{95} \le 0.42\,\text{s}$), intercepting and arresting illicit transactions well inside the strict banking SLA ($N \le 2.0\,\text{s}$) before money leaves the originating vault.
+* 🛡️ **The Unyielding Defense:** A dual-layer defense pairing deterministic heuristic security rules with a calibrated gradient-boosted LightGBM classifier ($\theta = 0.890$), protecting financial institutions with an empirical **97.22% precision** and zero operational downtime.
 
 ---
 
@@ -305,8 +320,8 @@ curl -X POST "http://localhost:8000/predict" \
 ### 1. Installation
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/bank-fraud-detection.git
-cd bank-fraud-detection
+git clone https://github.com/Ignaciobrenas/argus-fraud-shield.git
+cd argus-fraud-shield
 
 # Create and activate virtual environment
 python -m venv .venv
