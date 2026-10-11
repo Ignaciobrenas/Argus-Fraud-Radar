@@ -28,10 +28,15 @@ stream:
 api:
 	uvicorn src.fraud_detection.api.serve:app --host 0.0.0.0 --port 8000
 
+kpi:
+	python -m src.fraud_detection.analysis.scenarios
+
+dashboard:
+	streamlit run src/fraud_detection/dashboard/app.py
+
 run:
 	python main.py
 
-
-all: run
+all: generate bronze silver gold train stream kpi test
 
 
