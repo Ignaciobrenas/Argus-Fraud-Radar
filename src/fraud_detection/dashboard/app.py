@@ -132,6 +132,33 @@ with st.sidebar:
     """, unsafe_allow_html=True)
     
     st.markdown("---")
+    st.header("🧭 Navigation Views")
+    tab_names = [
+        "📊 Executive KPI & Financial ROI",
+        "🔬 Scenarios Benchmark (A vs B vs C)",
+        "🎯 Threat Radar (8 Patterns)",
+        "🧠 AI Explainability & Features",
+        "⚡ Forensic Stream Inspector",
+        "🏆 Strategic Conclusions"
+    ]
+    
+    default_tab_idx = 0
+    if "tab" in st.query_params:
+        try:
+            val = int(st.query_params["tab"])
+            if 0 <= val < len(tab_names):
+                default_tab_idx = val
+        except Exception:
+            pass
+
+    selected_view = st.radio(
+        "Select Active Control Panel:",
+        tab_names,
+        index=default_tab_idx,
+        label_visibility="collapsed"
+    )
+    
+    st.markdown("---")
     st.header("⚙️ Real-Time SLA & ML Tuning")
     
     n_threshold = st.slider(
@@ -205,6 +232,33 @@ recall_score = (len(tp) / total_frauds_count) * 100.0
 mean_latency = df_active["detection_latency_seconds"].mean()
 p95_latency = np.percentile(df_active["detection_latency_seconds"], 95)
 
+# Scenarios Global Parity Benchmarks
+kpi_a = 0.0
+rec_a = (df_active[(df_active['is_fraud']==1) & (df_active['rule_alert']==1)].shape[0] / total_frauds_count) * 100.0
+prec_a = (df_active[(df_active['is_fraud']==1) & (df_active['rule_alert']==1)].shape[0] / max(1, df_active['rule_alert'].sum())) * 100.0
+fp_a = df_active[(df_active['is_fraud']==0) & (df_active['rule_alert']==1)].shape[0]
+saved_a = 0.0
+
+kpi_b = real_time_fraud_pct(
+    pd.DataFrame({
+        "is_fraud": df_active["is_fraud"],
+        "is_alert": df_active["rule_alert"],
+        "detection_latency_seconds": df_active["detection_latency_seconds"]
+    }),
+    n_threshold
+)
+rec_b = rec_a
+prec_b = prec_a
+fp_b = fp_a
+tp_b_df = df_active[(df_active["is_fraud"] == 1) & (df_active["rule_alert"] == 1)]
+saved_b = float(tp_b_df["amount"].sum())
+
+kpi_c = kpi_custom
+rec_c = recall_score
+prec_c = precision_score
+fp_c = len(fp)
+saved_c = money_saved
+
 # ==============================================================================
 # 4. TOP HERO HEADER & METRIC SUMMARY
 # ==============================================================================
@@ -228,21 +282,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# 5. NAVIGATION TABS (ENTERPRISE WORKFLOW)
+# 5. ACTIVE VIEW DISPATCHER
 # ==============================================================================
-tab_kpi, tab_scen, tab_patterns, tab_ai, tab_stream, tab_concl = st.tabs([
-    "📊 Executive KPI & Financial ROI",
-    "🔬 Scenarios Benchmark (A vs B vs C)",
-    "🎯 Threat Radar (8 Patterns)",
-    "🧠 AI Explainability & Features",
-    "⚡ Forensic Stream Inspector",
-    "🏆 Strategic Conclusions"
-])
-
-# ==============================================================================
-# TAB 1: EXECUTIVE KPI & FINANCIAL ROI
-# ==============================================================================
-with tab_kpi:
+if selected_view == tab_names[0]:
     st.markdown("### 🎯 Primary Lineage KPI & Capital Protection Overview")
     st.caption(f"Evaluated across {len(df_active):,} streaming events with SLA N = {n_threshold:.1f}s and Decision Threshold θ = {ml_threshold:.2f}.")
     
@@ -384,42 +426,12 @@ with tab_kpi:
 # ==============================================================================
 # TAB 2: SCENARIOS BENCHMARK (A vs B vs C)
 # ==============================================================================
-with tab_scen:
+elif selected_view == tab_names[1]:
     st.markdown("### 🔬 Comparative Benchmark: Scenario A vs Scenario B vs Scenario C")
     st.markdown("""
     The core academic question of the **Datacycle Case 2** activity is determining whether real-time streaming architectures justify operational complexity over nightly batch processes, and how heuristic rules compare to supervised machine learning.
     """)
     
-    # Pre-calculated benchmarks for exact parity
-    # Scenario A: Batch rules (nightly settlement, latency > 3600s)
-    kpi_a = 0.0
-    rec_a = (df_active[(df_active['is_fraud']==1) & (df_active['rule_alert']==1)].shape[0] / total_frauds_count) * 100.0
-    prec_a = (df_active[(df_active['is_fraud']==1) & (df_active['rule_alert']==1)].shape[0] / max(1, df_active['rule_alert'].sum())) * 100.0
-    fp_a = df_active[(df_active['is_fraud']==0) & (df_active['rule_alert']==1)].shape[0]
-    saved_a = 0.0 # because batch alerts occur hours after money has left
-    
-    # Scenario B: Streaming rules
-    kpi_b = real_time_fraud_pct(
-        pd.DataFrame({
-            "is_fraud": df_active["is_fraud"],
-            "is_alert": df_active["rule_alert"],
-            "detection_latency_seconds": df_active["detection_latency_seconds"]
-        }),
-        n_threshold
-    )
-    rec_b = rec_a
-    prec_b = prec_a
-    fp_b = fp_a
-    tp_b_df = df_active[(df_active["is_fraud"] == 1) & (df_active["rule_alert"] == 1)]
-    saved_b = float(tp_b_df["amount"].sum())
-    
-    # Scenario C: Streaming ML (ARGUS)
-    kpi_c = kpi_custom
-    rec_c = recall_score
-    prec_c = precision_score
-    fp_c = len(fp)
-    saved_c = money_saved
-
     scen_summary_df = pd.DataFrame([
         {
             "Architecture": "Scenario A: Batch Rules Engine",
@@ -504,7 +516,7 @@ with tab_scen:
 # ==============================================================================
 # TAB 3: THREAT RADAR (8 PATTERNS ANALYSIS)
 # ==============================================================================
-with tab_patterns:
+elif selected_view == tab_names[2]:
     st.markdown("### 🎯 Multi-Vector Threat Intelligence: 8 Injected Fraud Patterns")
     st.caption("Deep-dive evaluation of detection capabilities across synthetic banking attack vectors.")
     
@@ -573,7 +585,7 @@ with tab_patterns:
 # ==============================================================================
 # TAB 4: AI EXPLAINABILITY & FEATURE STORE
 # ==============================================================================
-with tab_ai:
+elif selected_view == tab_names[3]:
     st.markdown("### 🧠 AI Explainability, Feature Contributions & Calibration")
     st.caption("Inspect how the gradient-boosted LightGBM classifier attributes risk scores to streaming transactions.")
     
@@ -649,7 +661,7 @@ with tab_ai:
 # ==============================================================================
 # TAB 5: FORENSIC STREAM INSPECTOR
 # ==============================================================================
-with tab_stream:
+elif selected_view == tab_names[4]:
     st.markdown("### ⚡ Live Event Stream & Forensic Inspector")
     st.caption("Real-time telemetry feed of scored transactions with audit details.")
     
@@ -724,7 +736,7 @@ with tab_stream:
 # ==============================================================================
 # TAB 6: STRATEGIC CONCLUSIONS
 # ==============================================================================
-with tab_concl:
+elif selected_view == tab_names[5]:
     st.markdown("### 🏆 Strategic Conclusions & Executive Recommendations")
     st.caption("Official technical synthesis for academic evaluation (STUCOM Pelai · UNITA Erasmus+ BIP).")
     

@@ -194,6 +194,58 @@ The interactive dashboard ([`src/fraud_detection/dashboard/app.py`](src/fraud_de
 ========================================================================================================
 ```
 
+### 📸 Live Telemetry & Control Center Screenshots
+
+The interactive platform provides 6 dedicated operational views designed for enterprise fraud risk analysts and academic evaluation:
+
+<details open>
+<summary><b>1. Executive KPI & Financial ROI Command Center</b></summary>
+<br>
+Real-time SLA speedometer gauge (79.91% vs 70.0% target), €34,359.13 capital shield breakdown, live confusion matrix, and 97.22% precision telemetry.
+
+![Executive KPI Command Center](docs/figures/01_executive_kpi_command_center.png)
+</details>
+
+<details>
+<summary><b>2. Scenarios Benchmark Comparison (Scenario A vs B vs C)</b></summary>
+<br>
+Academic evaluation proving the superiority of real-time streaming ML over nightly batch and heuristic engines with exact capital protection audit.
+
+![Scenarios Benchmark Comparison](docs/figures/02_scenarios_benchmark_comparison.png)
+</details>
+
+<details>
+<summary><b>3. Multi-Vector Threat Intelligence (8 Injected Patterns)</b></summary>
+<br>
+Comparative detection lift across synthetic banking attack vectors: Impossible Travel, Account Takeover, Nocturnal ATM Drain, and Low-and-Slow Camouflage.
+
+![Threat Radar Fraud Patterns](docs/figures/03_threat_radar_fraud_patterns.png)
+</details>
+
+<details>
+<summary><b>4. AI Explainability, Feature Importance & Latency Distribution</b></summary>
+<br>
+LightGBM tree split importances, sub-second latency distribution against 2.0s regulatory SLA, and cost-calibrated decision threshold Pareto curve.
+
+![AI Explainability and Features](docs/figures/04_ai_explainability_features.png)
+</details>
+
+<details>
+<summary><b>5. Forensic Stream Inspector & Single Transaction Dossier</b></summary>
+<br>
+Live telemetry event inspector with dynamic status filters and individual forensic audit cards for deep-dive investigator verification.
+
+![Forensic Stream Inspector](docs/figures/05_forensic_stream_inspector.png)
+</details>
+
+<details>
+<summary><b>6. Strategic Conclusions & Day-2 Production Roadmap</b></summary>
+<br>
+Official academic synthesis for STUCOM Pelai and UNITA Erasmus+ BIP, including Kafka broker migration, Redis Feature Store, and GDPR Article 22 compliance.
+
+![Strategic Conclusions and Roadmap](docs/figures/06_strategic_conclusions_roadmap.png)
+</details>
+
 ---
 
 ## 📊 Comparative Experimental Benchmarks (Scenarios A, B & C)
