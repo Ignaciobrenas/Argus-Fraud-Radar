@@ -18,6 +18,7 @@ Welcome to the technical and academic documentation for the **Bank Fraud Detecti
 | [7. Fraud Patterns & Attack Vectors](fraud_patterns.md) | Detailed specifications and detection vectors for the 8 injected fraud patterns. |
 | [8. Comparative Scenarios & KPI](scenarios_and_kpi.md) | Comparison of Scenario A (batch), B (stream rules), and C (stream ML), plus primary KPI calculation. |
 | [9. Data Generation Prompt](data_generation_prompt.md) | Exact prompt engineering evidence used with the LLM to design the data architecture. |
+| [10. Academic Context & UNITA BIP](unita_bip.md) | European UNITA Erasmus+ BIP initiative, STUCOM Pelai DAW 2, and MOPT2 AI module. |
 
 ---
 

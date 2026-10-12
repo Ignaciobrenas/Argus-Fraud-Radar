@@ -18,6 +18,7 @@ Bienvenido a la documentación técnica y académica del proyecto **Bank Fraud D
 | [7. Casos de Uso y Patrones de Fraude](fraud_patterns.md) | Explicación detallada de los 8 patrones de fraude inyectados y detectados. |
 | [8. Escenarios y KPI](scenarios_and_kpi.md) | Comparativa de Escenarios A (batch), B (stream rules) y C (stream ML) y cálculo del KPI. |
 | [9. Prompt de Generación](data_generation_prompt.md) | Prompt de ingeniería entregado a la IA para el diseño y síntesis del dataset. |
+| [10. Marco Académico UNITA BIP](unita_bip.md) | Contexto europeo Erasmus+ BIP, STUCOM Pelai DAW 2 y módulo MOPT2 de IA. |
 
 ---
 
