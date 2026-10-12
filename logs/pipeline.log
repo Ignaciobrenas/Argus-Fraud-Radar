@@ -29,3 +29,721 @@ weighted avg       0.99      0.99      0.99      2000
 2026-10-06 19:08:53,872 - BankFraud - INFO - Starting Streaming Consumer...
 2026-10-06 19:08:53,936 - BankFraud - INFO - Streaming consumer generated alerts.parquet
 2026-10-06 19:08:53,936 - BankFraud - INFO - Pipeline executed successfully end-to-end!
+2026-10-12 18:47:25,180 - BankFraud - INFO - ==================================================
+2026-10-12 18:47:25,180 - BankFraud - INFO - Starting Multi-Pattern Fraud Synthetic Data Generation
+2026-10-12 18:47:25,180 - BankFraud - INFO - ==================================================
+2026-10-12 18:47:25,180 - BankFraud - INFO - Generating 1000 customer profiles...
+2026-10-12 18:47:25,462 - BankFraud - INFO - Saved: data/raw/customer_profile.csv (1000 rows)
+2026-10-12 18:47:25,462 - BankFraud - INFO - Generating customer devices...
+2026-10-12 18:47:25,524 - BankFraud - INFO - Saved: data/raw/device_data.json (1477 devices)
+2026-10-12 18:47:25,524 - BankFraud - INFO - Generating 20000 historical transactions (2026-01-01 to 2026-06-30)...
+2026-10-12 18:47:38,954 - BankFraud - INFO - ==================================================
+2026-10-12 18:47:38,954 - BankFraud - INFO - Starting Multi-Pattern Fraud Synthetic Data Generation
+2026-10-12 18:47:38,954 - BankFraud - INFO - ==================================================
+2026-10-12 18:47:38,955 - BankFraud - INFO - Generating 1000 customer profiles...
+2026-10-12 18:47:39,035 - BankFraud - INFO - Saved: data/raw/customer_profile.csv (1000 rows)
+2026-10-12 18:47:39,035 - BankFraud - INFO - Generating customer devices...
+2026-10-12 18:47:39,103 - BankFraud - INFO - Saved: data/raw/device_data.json (1477 devices)
+2026-10-12 18:47:39,103 - BankFraud - INFO - Generating 20000 historical transactions (2026-01-01 to 2026-06-30)...
+2026-10-12 18:47:40,895 - BankFraud - INFO - Saved: data/raw/transaction_history.parquet (20000 rows, 311 frauds)
+2026-10-12 18:47:40,895 - BankFraud - INFO - Generating 5000 streaming transactions (2026-07-01 to 2026-07-31)...
+2026-10-12 18:47:41,373 - BankFraud - INFO - Saved: data/raw/transactions.csv (5000 rows, 76 frauds)
+2026-10-12 18:47:41,538 - BankFraud - INFO - Saved: data/raw/user_location.json (25000 location events)
+2026-10-12 18:47:41,553 - BankFraud - INFO - Saved: data/raw/access_logs.jsonl (5043 access log events)
+2026-10-12 18:47:41,553 - BankFraud - INFO - Generating previous fraud alerts (strictly historical to prevent leakage)...
+2026-10-12 18:47:41,567 - BankFraud - INFO - Saved: data/raw/previous_fraud_alerts.csv (340 alerts)
+2026-10-12 18:47:41,569 - BankFraud - INFO - Total Transactions Generated: 25000
+2026-10-12 18:47:41,569 - BankFraud - INFO - Total Frauds: 387 (1.55%)
+2026-10-12 18:47:41,569 - BankFraud - INFO - Fraud Breakdown by Pattern: {'velocity_burst': 170, 'account_takeover': 36, 'foreign_country': 34, 'atm_nocturnal_drain': 32, 'new_device_high_amount': 30, 'impossible_travel': 29, 'hard_subtle_fraud': 28, 'phishing_mule_transfer': 28}
+2026-10-12 18:47:41,569 - BankFraud - INFO - ==================================================
+2026-10-12 18:47:41,569 - BankFraud - INFO - Data Generation Completed Successfully!
+2026-10-12 18:47:41,569 - BankFraud - INFO - ==================================================
+2026-10-12 18:47:49,843 - BankFraud - INFO - Starting batch ingestion to Bronze...
+2026-10-12 18:48:17,254 - BankFraud - INFO - Starting batch ingestion to Bronze...
+2026-10-12 18:48:53,094 - BankFraud - INFO - Starting batch ingestion to Bronze...
+2026-10-12 18:49:16,131 - BankFraud - INFO - Batch ingestion to Bronze completed.
+2026-10-12 18:50:09,182 - BankFraud - INFO - Loaded LightGBM model for API inference.
+2026-10-12 18:50:18,356 - BankFraud - WARNING - Quality Check Failed: Null values found in column 'id'
+2026-10-12 18:50:19,905 - BankFraud - WARNING - Quality Check Failed: Negative amounts found in column 'amount'
+2026-10-12 18:50:49,411 - BankFraud - INFO - Starting Silver layer processing...
+2026-10-12 18:50:54,183 - BankFraud - INFO - Cleaning customer profiles...
+2026-10-12 18:50:57,142 - BankFraud - INFO - Cleaning device data...
+2026-10-12 18:50:57,826 - BankFraud - INFO - Cleaning transactions...
+2026-10-12 18:51:05,705 - BankFraud - INFO - All data quality checks passed for Silver transactions.
+2026-10-12 18:51:07,792 - BankFraud - INFO - Processing user location into Silver...
+2026-10-12 18:51:10,052 - BankFraud - INFO - Processing access logs into Silver...
+2026-10-12 18:51:11,891 - BankFraud - INFO - Processing previous fraud alerts into Silver...
+2026-10-12 18:51:12,406 - BankFraud - INFO - Silver layer build completed.
+2026-10-12 18:51:22,568 - BankFraud - INFO - ==================================================
+2026-10-12 18:51:22,568 - BankFraud - INFO - Starting Gold Layer Multi-Feature Engineering...
+2026-10-12 18:51:22,569 - BankFraud - INFO - ==================================================
+2026-10-12 18:51:22,680 - BankFraud - INFO - Loaded 25000 transactions from Silver.
+2026-10-12 18:51:22,804 - BankFraud - INFO - Computing behavioral and customer profile risk features...
+2026-10-12 18:51:57,828 - BankFraud - INFO - ==================================================
+2026-10-12 18:51:57,828 - BankFraud - INFO - Starting Gold Layer Multi-Feature Engineering...
+2026-10-12 18:51:57,828 - BankFraud - INFO - ==================================================
+2026-10-12 18:51:57,862 - BankFraud - INFO - Loaded 25000 transactions from Silver.
+2026-10-12 18:51:57,913 - BankFraud - INFO - Computing behavioral and customer profile risk features...
+2026-10-12 18:51:58,172 - BankFraud - INFO - Computing rolling window velocity features...
+2026-10-12 18:51:58,241 - BankFraud - INFO - Computing geographic distance and speed features...
+2026-10-12 18:51:58,304 - BankFraud - INFO - Saved Gold features table to data/gold/features.parquet (25000 rows, 43 columns)
+2026-10-12 18:51:58,304 - BankFraud - INFO - Gold layer feature engineering completed successfully!
+2026-10-12 18:52:19,852 - BankFraud - INFO - Evaluating Baseline Rules on 25000 transactions...
+2026-10-12 18:52:19,856 - BankFraud - INFO - ==================================================
+2026-10-12 18:52:19,856 - BankFraud - INFO - Baseline Rules Evaluation Results:
+2026-10-12 18:52:19,856 - BankFraud - INFO - Precision: 0.5055 (50.55%)
+2026-10-12 18:52:19,856 - BankFraud - INFO - Recall:    0.7158 (71.58%)
+2026-10-12 18:52:19,856 - BankFraud - INFO - F1-Score:  0.5925
+2026-10-12 18:52:19,856 - BankFraud - INFO - Confusion Matrix: TP=277, FP=271, FN=110, TN=24342
+2026-10-12 18:52:19,856 - BankFraud - INFO - 
+Baseline Detection by Fraud Type:
+2026-10-12 18:52:19,859 - BankFraud - INFO -  - account_takeover         : 36/36 (100.0%)
+2026-10-12 18:52:19,859 - BankFraud - INFO -  - atm_nocturnal_drain      : 28/32 (87.5%)
+2026-10-12 18:52:19,859 - BankFraud - INFO -  - foreign_country          : 34/34 (100.0%)
+2026-10-12 18:52:19,859 - BankFraud - INFO -  - hard_subtle_fraud        : 19/28 (67.9%)
+2026-10-12 18:52:19,859 - BankFraud - INFO -  - impossible_travel        : 29/29 (100.0%)
+2026-10-12 18:52:19,859 - BankFraud - INFO -  - new_device_high_amount   : 29/30 (96.7%)
+2026-10-12 18:52:19,860 - BankFraud - INFO -  - phishing_mule_transfer   : 28/28 (100.0%)
+2026-10-12 18:52:19,860 - BankFraud - INFO -  - velocity_burst           : 74/170 (43.5%)
+2026-10-12 18:52:19,860 - BankFraud - INFO - ==================================================
+2026-10-12 18:52:28,889 - BankFraud - INFO - Starting Enterprise synthetic data generation: 5000 customers, 100000 history txns, 20000 stream txns (fraud_rate=0.012)...
+2026-10-12 18:52:28,889 - BankFraud - INFO - Generating customer profiles...
+2026-10-12 18:52:28,964 - BankFraud - INFO - Saved 5000 customer profiles to data/raw/customer_profile.csv
+2026-10-12 18:52:28,964 - BankFraud - INFO - Generating customer devices...
+2026-10-12 18:52:29,155 - BankFraud - INFO - Saved 7091 devices to data/raw/device_data.json
+2026-10-12 18:52:29,156 - BankFraud - INFO - Generating transactions, locations, logs, and alerts...
+2026-10-12 18:52:29,190 - BankFraud - INFO - Generating historical transactions partition...
+2026-10-12 18:52:34,417 - BankFraud - INFO - Generating stream transactions partition...
+2026-10-12 18:52:35,606 - BankFraud - INFO - Saved 100000 rows to data/raw/transaction_history.parquet
+2026-10-12 18:52:35,606 - BankFraud - INFO - Saved 20000 rows to data/raw/transactions.csv
+2026-10-12 18:52:36,680 - BankFraud - INFO - Saved 120000 user locations to data/raw/user_location.json
+2026-10-12 18:52:36,718 - BankFraud - INFO - Saved 9758 access logs to data/raw/access_logs.jsonl
+2026-10-12 18:52:36,722 - BankFraud - INFO - Saved 835 previous fraud alerts to data/raw/previous_fraud_alerts.csv
+2026-10-12 18:52:36,722 - BankFraud - INFO - Enterprise synthetic generation successfully completed!
+2026-10-12 18:52:43,578 - BankFraud - INFO - ==================================================
+2026-10-12 18:52:43,578 - BankFraud - INFO - Starting Machine Learning Model Training (Temporal Split)
+2026-10-12 18:52:43,578 - BankFraud - INFO - ==================================================
+2026-10-12 18:52:43,617 - BankFraud - INFO - Applying strict temporal split at stream_start = 2026-07-01...
+2026-10-12 18:52:43,641 - BankFraud - INFO - Train set: 20000 rows (311 frauds, 1.55%)
+2026-10-12 18:52:43,641 - BankFraud - INFO - Test set:  5000 rows (76 frauds, 1.52%)
+2026-10-12 18:52:43,643 - BankFraud - INFO - Training LightGBM Classifier on 19 features...
+2026-10-12 18:52:43,652 - BankFraud - INFO - Starting batch ingestion to Bronze...
+2026-10-12 18:52:43,999 - BankFraud - INFO - ==================================================
+2026-10-12 18:52:43,999 - BankFraud - INFO - LightGBM Model Test Evaluation (Streaming Period):
+2026-10-12 18:52:43,999 - BankFraud - INFO - Optimal Decision Threshold: 0.6540
+2026-10-12 18:52:43,999 - BankFraud - INFO - Precision: 1.0000 (100.00%)
+2026-10-12 18:52:43,999 - BankFraud - INFO - Recall:    1.0000 (100.00%)
+2026-10-12 18:52:43,999 - BankFraud - INFO - F1-Score:  1.0000
+2026-10-12 18:52:43,999 - BankFraud - INFO - PR-AUC:    1.0000
+2026-10-12 18:52:43,999 - BankFraud - INFO - ROC-AUC:   1.0000
+2026-10-12 18:52:43,999 - BankFraud - INFO - Confusion Matrix: TP=76, FP=0, FN=0, TN=4924
+2026-10-12 18:52:44,001 - BankFraud - INFO - 
+ML Model Detection by Fraud Type on Test Set:
+2026-10-12 18:52:44,002 - BankFraud - INFO -  - account_takeover         : 7/7 (100.0%)
+2026-10-12 18:52:44,002 - BankFraud - INFO -  - atm_nocturnal_drain      : 8/8 (100.0%)
+2026-10-12 18:52:44,003 - BankFraud - INFO -  - foreign_country          : 5/5 (100.0%)
+2026-10-12 18:52:44,003 - BankFraud - INFO -  - hard_subtle_fraud        : 8/8 (100.0%)
+2026-10-12 18:52:44,003 - BankFraud - INFO -  - impossible_travel        : 5/5 (100.0%)
+2026-10-12 18:52:44,003 - BankFraud - INFO -  - new_device_high_amount   : 4/4 (100.0%)
+2026-10-12 18:52:44,003 - BankFraud - INFO -  - phishing_mule_transfer   : 6/6 (100.0%)
+2026-10-12 18:52:44,004 - BankFraud - INFO -  - velocity_burst           : 33/33 (100.0%)
+2026-10-12 18:52:44,007 - BankFraud - INFO - Saved: models/feature_importance.csv
+2026-10-12 18:52:44,011 - BankFraud - INFO - Saved: models/lgbm_model.pkl
+2026-10-12 18:52:44,012 - BankFraud - INFO - Saved: models/metrics.json
+2026-10-12 18:52:44,012 - BankFraud - INFO - ==================================================
+2026-10-12 18:53:08,081 - BankFraud - INFO - Batch ingestion to Bronze completed.
+2026-10-12 18:53:18,185 - BankFraud - INFO - ==================================================
+2026-10-12 18:53:18,185 - BankFraud - INFO - Starting Streaming Consumer & Real-time Scoring...
+2026-10-12 18:53:18,185 - BankFraud - INFO - ==================================================
+2026-10-12 18:53:18,203 - BankFraud - INFO - Loaded LightGBM model with decision threshold = 0.6540
+2026-10-12 18:53:18,259 - BankFraud - INFO - Loaded 5000 streaming transactions to score.
+2026-10-12 18:53:18,316 - BankFraud - INFO - Generated data/alerts.parquet (5000 scored records)
+2026-10-12 18:53:18,317 - BankFraud - INFO - Total Alerts Triggered: 76 (ML) vs 95 (Rules)
+2026-10-12 18:53:18,318 - BankFraud - INFO - Average Detection Latency: 1.039s (P95: 2.173s)
+2026-10-12 18:53:18,318 - BankFraud - INFO - Streaming consumer completed successfully!
+2026-10-12 18:53:45,702 - BankFraud - INFO - Loaded 5000 alerts for scenario comparison (N = 2.0s).
+2026-10-12 18:54:11,745 - BankFraud - INFO - Starting Silver layer processing...
+2026-10-12 18:54:17,497 - BankFraud - INFO - Cleaning customer profiles...
+2026-10-12 18:54:21,604 - BankFraud - INFO - Cleaning device data...
+2026-10-12 18:54:22,669 - BankFraud - INFO - Cleaning transactions...
+2026-10-12 18:54:33,570 - BankFraud - INFO - All data quality checks passed for Silver transactions.
+2026-10-12 18:54:36,652 - BankFraud - INFO - Processing user location into Silver...
+2026-10-12 18:54:39,292 - BankFraud - INFO - Processing access logs into Silver...
+2026-10-12 18:54:41,560 - BankFraud - INFO - Processing previous fraud alerts into Silver...
+2026-10-12 18:54:42,159 - BankFraud - INFO - Silver layer build completed.
+2026-10-12 18:55:02,120 - BankFraud - INFO - ==================================================
+2026-10-12 18:55:02,120 - BankFraud - INFO - Starting Gold Layer Multi-Feature Engineering...
+2026-10-12 18:55:02,120 - BankFraud - INFO - ==================================================
+2026-10-12 18:55:02,296 - BankFraud - INFO - Loaded 104999 transactions from Silver.
+2026-10-12 18:55:02,482 - BankFraud - INFO - Computing behavioral and customer profile risk features...
+2026-10-12 18:55:03,083 - BankFraud - INFO - Computing rolling window velocity features...
+2026-10-12 18:55:03,467 - BankFraud - INFO - Computing geographic distance and speed features...
+2026-10-12 18:55:03,857 - BankFraud - INFO - Saved Gold features table to data/gold/features (104999 rows, 46 columns)
+2026-10-12 18:55:03,858 - BankFraud - INFO - Gold layer feature engineering completed successfully!
+2026-10-12 18:55:11,860 - BankFraud - INFO - Loaded LightGBM model for API inference.
+2026-10-12 18:55:21,108 - BankFraud - WARNING - Quality Check Failed: Null values found in column 'id'
+2026-10-12 18:55:22,675 - BankFraud - WARNING - Quality Check Failed: Negative amounts found in column 'amount'
+2026-10-12 18:55:36,072 - BankFraud - INFO - ==================================================
+2026-10-12 18:55:36,072 - BankFraud - INFO - Starting Gold Layer Multi-Feature Engineering...
+2026-10-12 18:55:36,072 - BankFraud - INFO - ==================================================
+2026-10-12 18:55:36,137 - BankFraud - INFO - Loaded 104999 transactions from Silver.
+2026-10-12 18:55:36,276 - BankFraud - INFO - Computing behavioral and customer profile risk features...
+2026-10-12 18:55:36,864 - BankFraud - INFO - Computing rolling window velocity features...
+2026-10-12 18:55:37,236 - BankFraud - INFO - Computing geographic distance and speed features...
+2026-10-12 18:55:37,603 - BankFraud - INFO - Saved Gold features table to data/gold/features (104999 rows, 46 columns)
+2026-10-12 18:55:37,603 - BankFraud - INFO - Gold layer feature engineering completed successfully!
+2026-10-12 18:56:08,519 - BankFraud - INFO - Loaded LightGBM model for API inference.
+2026-10-12 18:56:17,774 - BankFraud - WARNING - Quality Check Failed: Null values found in column 'id'
+2026-10-12 18:56:19,416 - BankFraud - WARNING - Quality Check Failed: Negative amounts found in column 'amount'
+2026-10-12 18:56:26,329 - BankFraud - INFO - ==================================================
+2026-10-12 18:56:26,330 - BankFraud - INFO - Starting Enterprise Model Training & Threshold Optimization...
+2026-10-12 18:56:26,330 - BankFraud - INFO - ==================================================
+2026-10-12 18:56:26,386 - BankFraud - INFO - Loaded 104999 transactions from Gold layer.
+2026-10-12 18:56:26,440 - BankFraud - INFO - Train split: 83999 rows (1045 frauds, 1.24%)
+2026-10-12 18:56:26,440 - BankFraud - INFO - Test split:  21000 rows (272 frauds, 1.30%)
+2026-10-12 18:56:26,682 - BankFraud - INFO - Optimizing decision threshold for False Positive avoidance (target FPR <= 0.50%)...
+2026-10-12 18:56:26,817 - BankFraud - INFO - ==================================================
+2026-10-12 18:56:26,818 - BankFraud - INFO - OPTIMAL ENTERPRISE THRESHOLD: 0.940
+2026-10-12 18:56:26,818 - BankFraud - INFO - Test Precision:       86.50%
+2026-10-12 18:56:26,818 - BankFraud - INFO - Test False Pos. Rate: 0.130% (Target: <=0.50%)
+2026-10-12 18:56:26,818 - BankFraud - INFO - Test Recall:          63.60%
+2026-10-12 18:56:26,818 - BankFraud - INFO - Test PR-AUC:          0.7971 | ROC-AUC: 0.9919
+2026-10-12 18:56:26,818 - BankFraud - INFO - Confusion Matrix:     TP=173, FP=27, FN=99, TN=20701
+2026-10-12 18:56:26,818 - BankFraud - INFO - ==================================================
+2026-10-12 18:56:26,824 - BankFraud - INFO - Saved model to models/lgbm_model.pkl
+2026-10-12 18:56:26,825 - BankFraud - INFO - Saved optimal threshold config to models/optimal_threshold.json
+2026-10-12 18:56:26,830 - BankFraud - INFO - Saved feature importance to models/feature_importance.csv
+2026-10-12 18:56:26,831 - BankFraud - INFO - Saved metrics to models/metrics.json
+2026-10-12 18:56:26,846 - BankFraud - INFO - Saved customer baseline stats to models/customer_stats.parquet
+2026-10-12 18:56:26,846 - BankFraud - INFO - Model training & threshold optimization completed successfully!
+2026-10-12 18:56:57,559 - BankFraud - INFO - ==================================================
+2026-10-12 18:56:57,559 - BankFraud - INFO - Starting Enterprise Real-Time Streaming Consumer...
+2026-10-12 18:56:57,559 - BankFraud - INFO - ==================================================
+2026-10-12 18:56:57,604 - BankFraud - INFO - Loaded 20000 real-time streaming transactions.
+2026-10-12 18:56:58,311 - BankFraud - INFO - Loaded Enterprise Optimal Decision Threshold: 0.940 (target FPR <=0.50%)
+2026-10-12 18:56:58,742 - BankFraud - INFO - Streaming consumer generated data/alerts.parquet (20000 scored transactions).
+2026-10-12 18:56:58,749 - BankFraud - INFO - ==================================================
+2026-10-12 18:56:58,749 - BankFraud - INFO - STREAMING INFERENCE FINANCIAL KPIS:
+2026-10-12 18:56:58,749 - BankFraud - INFO - Total Stream Transactions: 20000
+2026-10-12 18:56:58,749 - BankFraud - INFO - Real-Time Detection Rate:  31.51%
+2026-10-12 18:56:58,749 - BankFraud - INFO - Stream Precision:          95.83%
+2026-10-12 18:56:58,749 - BankFraud - INFO - Stream False Positive Rate: 0.015%
+2026-10-12 18:56:58,749 - BankFraud - INFO - Money Saved (Fraud Caught): €21,335.12
+2026-10-12 18:56:58,749 - BankFraud - INFO - Money Lost (Missed Fraud):  €16,385.41
+2026-10-12 18:56:58,749 - BankFraud - INFO - Money Retained Error (FPs): €555.94
+2026-10-12 18:56:58,749 - BankFraud - INFO - ==================================================
+2026-10-12 18:57:32,334 - BankFraud - INFO - Loaded LightGBM model for API inference.
+2026-10-12 18:57:42,018 - BankFraud - WARNING - Quality Check Failed: Null values found in column 'id'
+2026-10-12 18:57:43,608 - BankFraud - WARNING - Quality Check Failed: Negative amounts found in column 'amount'
+2026-10-12 18:58:50,671 - BankFraud - INFO - ==================================================
+2026-10-12 18:58:50,671 - BankFraud - INFO - Starting Enterprise Real-Time Streaming Consumer...
+2026-10-12 18:58:50,671 - BankFraud - INFO - ==================================================
+2026-10-12 18:58:50,717 - BankFraud - INFO - Loaded 20000 real-time streaming transactions.
+2026-10-12 18:58:51,375 - BankFraud - INFO - Loaded Enterprise Optimal Decision Threshold: 0.940 (target FPR <=0.50%)
+2026-10-12 18:58:51,801 - BankFraud - INFO - Streaming consumer generated data/alerts.parquet (20000 scored transactions).
+2026-10-12 18:58:51,808 - BankFraud - INFO - ==================================================
+2026-10-12 18:58:51,808 - BankFraud - INFO - STREAMING INFERENCE FINANCIAL KPIS:
+2026-10-12 18:58:51,808 - BankFraud - INFO - Total Stream Transactions: 20000
+2026-10-12 18:58:51,808 - BankFraud - INFO - Real-Time Detection Rate:  31.51%
+2026-10-12 18:58:51,808 - BankFraud - INFO - Stream Precision:          95.83%
+2026-10-12 18:58:51,808 - BankFraud - INFO - Stream False Positive Rate: 0.015%
+2026-10-12 18:58:51,809 - BankFraud - INFO - Money Saved (Fraud Caught): €21,335.12
+2026-10-12 18:58:51,809 - BankFraud - INFO - Money Lost (Missed Fraud):  €16,385.41
+2026-10-12 18:58:51,809 - BankFraud - INFO - Money Retained Error (FPs): €555.94
+2026-10-12 18:58:51,809 - BankFraud - INFO - ==================================================
+2026-10-12 18:58:58,244 - BankFraud - INFO - Starting End-to-End Bank Fraud Detection Pipeline
+2026-10-12 18:58:58,285 - BankFraud - INFO - Starting Enterprise synthetic data generation: 5000 customers, 100000 history txns, 20000 stream txns (fraud_rate=0.012)...
+2026-10-12 18:58:58,285 - BankFraud - INFO - Generating customer profiles...
+2026-10-12 18:58:58,362 - BankFraud - INFO - Saved 5000 customer profiles to data/raw/customer_profile.csv
+2026-10-12 18:58:58,362 - BankFraud - INFO - Generating customer devices...
+2026-10-12 18:58:58,562 - BankFraud - INFO - Saved 7091 devices to data/raw/device_data.json
+2026-10-12 18:58:58,562 - BankFraud - INFO - Generating transactions, locations, logs, and alerts...
+2026-10-12 18:58:58,590 - BankFraud - INFO - Generating historical transactions partition...
+2026-10-12 18:59:04,415 - BankFraud - INFO - Loaded LightGBM model for API inference.
+2026-10-12 18:59:07,306 - BankFraud - INFO - Generating stream transactions partition...
+2026-10-12 18:59:09,834 - BankFraud - INFO - Saved 100000 rows to data/raw/transaction_history.parquet
+2026-10-12 18:59:09,834 - BankFraud - INFO - Saved 20000 rows to data/raw/transactions.csv
+2026-10-12 18:59:11,347 - BankFraud - INFO - Saved 120000 user locations to data/raw/user_location.json
+2026-10-12 18:59:11,412 - BankFraud - INFO - Saved 9758 access logs to data/raw/access_logs.jsonl
+2026-10-12 18:59:11,416 - BankFraud - INFO - Saved 835 previous fraud alerts to data/raw/previous_fraud_alerts.csv
+2026-10-12 18:59:11,417 - BankFraud - INFO - Enterprise synthetic generation successfully completed!
+2026-10-12 18:59:11,470 - BankFraud - INFO - Starting batch ingestion to Bronze...
+2026-10-12 18:59:14,269 - BankFraud - WARNING - Quality Check Failed: Null values found in column 'id'
+2026-10-12 18:59:16,115 - BankFraud - WARNING - Quality Check Failed: Negative amounts found in column 'amount'
+2026-10-12 18:59:27,806 - BankFraud - INFO - Starting End-to-End Bank Fraud Detection Pipeline
+2026-10-12 18:59:27,854 - BankFraud - INFO - Starting Enterprise synthetic data generation: 5000 customers, 100000 history txns, 20000 stream txns (fraud_rate=0.012)...
+2026-10-12 18:59:27,855 - BankFraud - INFO - Generating customer profiles...
+2026-10-12 18:59:27,942 - BankFraud - INFO - Saved 5000 customer profiles to data/raw/customer_profile.csv
+2026-10-12 18:59:27,943 - BankFraud - INFO - Generating customer devices...
+2026-10-12 18:59:28,168 - BankFraud - INFO - Saved 7091 devices to data/raw/device_data.json
+2026-10-12 18:59:28,168 - BankFraud - INFO - Generating transactions, locations, logs, and alerts...
+2026-10-12 18:59:28,197 - BankFraud - INFO - Generating historical transactions partition...
+2026-10-12 18:59:37,361 - BankFraud - INFO - Generating stream transactions partition...
+2026-10-12 18:59:39,189 - BankFraud - INFO - Saved 100000 rows to data/raw/transaction_history.parquet
+2026-10-12 18:59:39,189 - BankFraud - INFO - Saved 20000 rows to data/raw/transactions.csv
+2026-10-12 18:59:40,417 - BankFraud - INFO - Saved 120000 user locations to data/raw/user_location.json
+2026-10-12 18:59:40,464 - BankFraud - INFO - Saved 9758 access logs to data/raw/access_logs.jsonl
+2026-10-12 18:59:40,469 - BankFraud - INFO - Saved 835 previous fraud alerts to data/raw/previous_fraud_alerts.csv
+2026-10-12 18:59:40,469 - BankFraud - INFO - Enterprise synthetic generation successfully completed!
+2026-10-12 18:59:40,509 - BankFraud - INFO - Starting batch ingestion to Bronze...
+2026-10-12 18:59:40,739 - BankFraud - INFO - Batch ingestion to Bronze completed.
+2026-10-12 18:59:41,191 - BankFraud - INFO - Starting Silver layer processing...
+2026-10-12 18:59:41,313 - BankFraud - INFO - Cleaning customer profiles...
+2026-10-12 18:59:42,630 - BankFraud - INFO - Cleaning device data...
+2026-10-12 18:59:43,511 - BankFraud - INFO - Cleaning transactions...
+2026-10-12 18:59:53,573 - BankFraud - INFO - All data quality checks passed for Silver transactions.
+2026-10-12 18:59:53,919 - BankFraud - ERROR - Pipeline failed: An error occurred while calling o185.parquet.
+: org.apache.spark.SparkException: [FAILED_READ_FILE.FILE_NOT_EXIST] Encountered error while reading file file:///C:/Users/Ignacio/Desktop/PROYECTOS%20DAW%202/PYTHON%20+%20IA/UNITA%20PROJECT/bank-fraud-detection/data/bronze/transaction_history/date=2026-03-22/part-00000-36de516f-7f20-4868-b607-5526e4e2cd4e.c000.snappy.parquet. File does not exist. It is possible the underlying files have been updated.
+You can explicitly invalidate the cache in Spark by running 'REFRESH TABLE tableName' command in SQL or by recreating the Dataset/DataFrame involved. SQLSTATE: KD001
+	at org.apache.spark.sql.errors.QueryExecutionErrors$.fileNotExistError(QueryExecutionErrors.scala:902)
+	at org.apache.spark.sql.execution.datasources.v2.FileDataSourceV2$.attachFilePath(FileDataSourceV2.scala:140)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext(FileScanRDD.scala:149)
+	at org.apache.spark.sql.execution.FileSourceScanExec$$anon$1.hasNext(DataSourceScanExec.scala:777)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.columnartorow_nextBatch_0$(Unknown Source)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:44)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.sort_addToSorter_0$(Unknown Source)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:44)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
+	at org.apache.spark.sql.execution.aggregate.SortAggregateExec.$anonfun$doExecute$1(SortAggregateExec.scala:65)
+	at org.apache.spark.sql.execution.aggregate.SortAggregateExec.$anonfun$doExecute$1$adapted(SortAggregateExec.scala:62)
+	at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsWithIndexInternal$2(RDD.scala:896)
+	at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsWithIndexInternal$2$adapted(RDD.scala:896)
+	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:57)
+	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:374)
+	at org.apache.spark.rdd.RDD.iterator(RDD.scala:338)
+	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:57)
+	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:374)
+	at org.apache.spark.rdd.RDD.iterator(RDD.scala:338)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:107)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:206)
+	at org.apache.spark.scheduler.Task.run(Task.scala:147)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:894)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:897)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1457)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:61)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$commandExecuted$1(QueryExecution.scala:224)
+	at org.apache.spark.sql.execution.QueryExecution.withAbortTransactionOnFailure(QueryExecution.scala:632)
+	at org.apache.spark.sql.execution.QueryExecution.commandExecuted(QueryExecution.scala:224)
+	at org.apache.spark.sql.execution.QueryExecution.assertCommandExecuted(QueryExecution.scala:309)
+	at org.apache.spark.sql.classic.DataFrameWriter.runCommand(DataFrameWriter.scala:615)
+	at org.apache.spark.sql.classic.DataFrameWriter.save(DataFrameWriter.scala:115)
+	at org.apache.spark.sql.DataFrameWriter.parquet(DataFrameWriter.scala:381)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.io.FileNotFoundException: File file:/C:/Users/Ignacio/Desktop/PROYECTOS DAW 2/PYTHON + IA/UNITA PROJECT/bank-fraud-detection/data/bronze/transaction_history/date=2026-03-22/part-00000-36de516f-7f20-4868-b607-5526e4e2cd4e.c000.snappy.parquet does not exist
+	at org.apache.hadoop.fs.RawLocalFileSystem.deprecatedGetFileStatus(RawLocalFileSystem.java:980)
+	at org.apache.hadoop.fs.RawLocalFileSystem.getFileLinkStatusInternal(RawLocalFileSystem.java:1301)
+	at org.apache.hadoop.fs.RawLocalFileSystem.getFileStatus(RawLocalFileSystem.java:970)
+	at org.apache.hadoop.fs.FilterFileSystem.getFileStatus(FilterFileSystem.java:462)
+	at org.apache.parquet.hadoop.util.HadoopInputFile.fromPath(HadoopInputFile.java:61)
+	at org.apache.spark.sql.execution.datasources.parquet.ParquetFooterReader.openFileAndReadFooter(ParquetFooterReader.java:100)
+	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat.$anonfun$buildReaderWithPartitionValues$2(ParquetFileFormat.scala:229)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.org$apache$spark$sql$execution$datasources$FileScanRDD$$anon$$readCurrentFile(FileScanRDD.scala:238)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.nextIterator(FileScanRDD.scala:298)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext0(FileScanRDD.scala:138)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext(FileScanRDD.scala:147)
+	at org.apache.spark.sql.execution.FileSourceScanExec$$anon$1.hasNext(DataSourceScanExec.scala:777)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.columnartorow_nextBatch_0$(Unknown Source)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:44)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.sort_addToSorter_0$(Unknown Source)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:44)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
+	at org.apache.spark.sql.execution.aggregate.SortAggregateExec.$anonfun$doExecute$1(SortAggregateExec.scala:65)
+	at org.apache.spark.sql.execution.aggregate.SortAggregateExec.$anonfun$doExecute$1$adapted(SortAggregateExec.scala:62)
+	at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsWithIndexInternal$2(RDD.scala:896)
+	at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsWithIndexInternal$2$adapted(RDD.scala:896)
+	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:57)
+	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:374)
+	at org.apache.spark.rdd.RDD.iterator(RDD.scala:338)
+	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:57)
+	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:374)
+	at org.apache.spark.rdd.RDD.iterator(RDD.scala:338)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:107)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:206)
+	at org.apache.spark.scheduler.Task.run(Task.scala:147)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:894)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:897)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	... 1 more
+Traceback (most recent call last):
+  File "C:\Users\Ignacio\Desktop\PROYECTOS DAW 2\PYTHON + IA\UNITA PROJECT\bank-fraud-detection\main.py", line 16, in main
+    run_build_silver()
+  File "C:\Users\Ignacio\Desktop\PROYECTOS DAW 2\PYTHON + IA\UNITA PROJECT\bank-fraud-detection\src\fraud_detection\processing\build_silver.py", line 56, in run_build_silver
+    df_all_tx.write.mode("overwrite").parquet(f"{silver_path}/transactions")
+  File "C:\Users\Ignacio\Desktop\PROYECTOS DAW 2\PYTHON + IA\UNITA PROJECT\bank-fraud-detection\.venv\Lib\site-packages\pyspark\sql\readwriter.py", line 2093, in parquet
+    self._jwrite.parquet(path)
+  File "C:\Users\Ignacio\Desktop\PROYECTOS DAW 2\PYTHON + IA\UNITA PROJECT\bank-fraud-detection\.venv\Lib\site-packages\py4j\java_gateway.py", line 1362, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ignacio\Desktop\PROYECTOS DAW 2\PYTHON + IA\UNITA PROJECT\bank-fraud-detection\.venv\Lib\site-packages\pyspark\errors\exceptions\captured.py", line 251, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "C:\Users\Ignacio\Desktop\PROYECTOS DAW 2\PYTHON + IA\UNITA PROJECT\bank-fraud-detection\.venv\Lib\site-packages\py4j\protocol.py", line 327, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling o185.parquet.
+: org.apache.spark.SparkException: [FAILED_READ_FILE.FILE_NOT_EXIST] Encountered error while reading file file:///C:/Users/Ignacio/Desktop/PROYECTOS%20DAW%202/PYTHON%20+%20IA/UNITA%20PROJECT/bank-fraud-detection/data/bronze/transaction_history/date=2026-03-22/part-00000-36de516f-7f20-4868-b607-5526e4e2cd4e.c000.snappy.parquet. File does not exist. It is possible the underlying files have been updated.
+You can explicitly invalidate the cache in Spark by running 'REFRESH TABLE tableName' command in SQL or by recreating the Dataset/DataFrame involved. SQLSTATE: KD001
+	at org.apache.spark.sql.errors.QueryExecutionErrors$.fileNotExistError(QueryExecutionErrors.scala:902)
+	at org.apache.spark.sql.execution.datasources.v2.FileDataSourceV2$.attachFilePath(FileDataSourceV2.scala:140)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext(FileScanRDD.scala:149)
+	at org.apache.spark.sql.execution.FileSourceScanExec$$anon$1.hasNext(DataSourceScanExec.scala:777)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.columnartorow_nextBatch_0$(Unknown Source)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:44)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.sort_addToSorter_0$(Unknown Source)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:44)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
+	at org.apache.spark.sql.execution.aggregate.SortAggregateExec.$anonfun$doExecute$1(SortAggregateExec.scala:65)
+	at org.apache.spark.sql.execution.aggregate.SortAggregateExec.$anonfun$doExecute$1$adapted(SortAggregateExec.scala:62)
+	at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsWithIndexInternal$2(RDD.scala:896)
+	at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsWithIndexInternal$2$adapted(RDD.scala:896)
+	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:57)
+	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:374)
+	at org.apache.spark.rdd.RDD.iterator(RDD.scala:338)
+	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:57)
+	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:374)
+	at org.apache.spark.rdd.RDD.iterator(RDD.scala:338)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:107)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:206)
+	at org.apache.spark.scheduler.Task.run(Task.scala:147)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:894)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:897)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1457)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:61)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$commandExecuted$1(QueryExecution.scala:224)
+	at org.apache.spark.sql.execution.QueryExecution.withAbortTransactionOnFailure(QueryExecution.scala:632)
+	at org.apache.spark.sql.execution.QueryExecution.commandExecuted(QueryExecution.scala:224)
+	at org.apache.spark.sql.execution.QueryExecution.assertCommandExecuted(QueryExecution.scala:309)
+	at org.apache.spark.sql.classic.DataFrameWriter.runCommand(DataFrameWriter.scala:615)
+	at org.apache.spark.sql.classic.DataFrameWriter.save(DataFrameWriter.scala:115)
+	at org.apache.spark.sql.DataFrameWriter.parquet(DataFrameWriter.scala:381)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:108)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.io.FileNotFoundException: File file:/C:/Users/Ignacio/Desktop/PROYECTOS DAW 2/PYTHON + IA/UNITA PROJECT/bank-fraud-detection/data/bronze/transaction_history/date=2026-03-22/part-00000-36de516f-7f20-4868-b607-5526e4e2cd4e.c000.snappy.parquet does not exist
+	at org.apache.hadoop.fs.RawLocalFileSystem.deprecatedGetFileStatus(RawLocalFileSystem.java:980)
+	at org.apache.hadoop.fs.RawLocalFileSystem.getFileLinkStatusInternal(RawLocalFileSystem.java:1301)
+	at org.apache.hadoop.fs.RawLocalFileSystem.getFileStatus(RawLocalFileSystem.java:970)
+	at org.apache.hadoop.fs.FilterFileSystem.getFileStatus(FilterFileSystem.java:462)
+	at org.apache.parquet.hadoop.util.HadoopInputFile.fromPath(HadoopInputFile.java:61)
+	at org.apache.spark.sql.execution.datasources.parquet.ParquetFooterReader.openFileAndReadFooter(ParquetFooterReader.java:100)
+	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat.$anonfun$buildReaderWithPartitionValues$2(ParquetFileFormat.scala:229)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.org$apache$spark$sql$execution$datasources$FileScanRDD$$anon$$readCurrentFile(FileScanRDD.scala:238)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.nextIterator(FileScanRDD.scala:298)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext0(FileScanRDD.scala:138)
+	at org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext(FileScanRDD.scala:147)
+	at org.apache.spark.sql.execution.FileSourceScanExec$$anon$1.hasNext(DataSourceScanExec.scala:777)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.columnartorow_nextBatch_0$(Unknown Source)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:44)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.sort_addToSorter_0$(Unknown Source)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:44)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:50)
+	at org.apache.spark.sql.execution.aggregate.SortAggregateExec.$anonfun$doExecute$1(SortAggregateExec.scala:65)
+	at org.apache.spark.sql.execution.aggregate.SortAggregateExec.$anonfun$doExecute$1$adapted(SortAggregateExec.scala:62)
+	at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsWithIndexInternal$2(RDD.scala:896)
+	at org.apache.spark.rdd.RDD.$anonfun$mapPartitionsWithIndexInternal$2$adapted(RDD.scala:896)
+	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:57)
+	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:374)
+	at org.apache.spark.rdd.RDD.iterator(RDD.scala:338)
+	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:57)
+	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:374)
+	at org.apache.spark.rdd.RDD.iterator(RDD.scala:338)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:107)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:206)
+	at org.apache.spark.scheduler.Task.run(Task.scala:147)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:894)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:897)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	... 1 more
+
+2026-10-12 19:00:10,398 - BankFraud - INFO - Batch ingestion to Bronze completed.
+2026-10-12 19:00:10,663 - BankFraud - INFO - Starting Silver layer processing...
+2026-10-12 19:00:10,783 - BankFraud - INFO - Cleaning customer profiles...
+2026-10-12 19:00:11,954 - BankFraud - INFO - Cleaning device data...
+2026-10-12 19:00:12,674 - BankFraud - INFO - Cleaning transactions...
+2026-10-12 19:00:22,364 - BankFraud - INFO - All data quality checks passed for Silver transactions.
+2026-10-12 19:00:25,999 - BankFraud - INFO - Processing user location into Silver...
+2026-10-12 19:00:29,212 - BankFraud - INFO - Processing access logs into Silver...
+2026-10-12 19:00:31,298 - BankFraud - INFO - Processing previous fraud alerts into Silver...
+2026-10-12 19:00:31,781 - BankFraud - INFO - Silver layer build completed.
+2026-10-12 19:00:32,186 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:32,186 - BankFraud - INFO - Starting Gold Layer Multi-Feature Engineering...
+2026-10-12 19:00:32,186 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:32,324 - BankFraud - INFO - Loaded 105000 transactions from Silver.
+2026-10-12 19:00:32,534 - BankFraud - INFO - Computing behavioral and customer profile risk features...
+2026-10-12 19:00:33,111 - BankFraud - INFO - Computing rolling window velocity features...
+2026-10-12 19:00:33,484 - BankFraud - INFO - Computing geographic distance and speed features...
+2026-10-12 19:00:33,864 - BankFraud - INFO - Saved Gold features table to data/gold/features (105000 rows, 46 columns)
+2026-10-12 19:00:33,864 - BankFraud - INFO - Gold layer feature engineering completed successfully!
+2026-10-12 19:00:33,868 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:33,868 - BankFraud - INFO - Starting Enterprise Model Training & Threshold Optimization...
+2026-10-12 19:00:33,868 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:33,892 - BankFraud - INFO - Loaded 105000 transactions from Gold layer.
+2026-10-12 19:00:33,942 - BankFraud - INFO - Train split: 84000 rows (1045 frauds, 1.24%)
+2026-10-12 19:00:33,942 - BankFraud - INFO - Test split:  21000 rows (272 frauds, 1.30%)
+2026-10-12 19:00:34,175 - BankFraud - INFO - Optimizing decision threshold for False Positive avoidance (target FPR <= 0.50%)...
+2026-10-12 19:00:34,296 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:34,296 - BankFraud - INFO - OPTIMAL ENTERPRISE THRESHOLD: 0.940
+2026-10-12 19:00:34,296 - BankFraud - INFO - Test Precision:       86.21%
+2026-10-12 19:00:34,297 - BankFraud - INFO - Test False Pos. Rate: 0.135% (Target: <=0.50%)
+2026-10-12 19:00:34,297 - BankFraud - INFO - Test Recall:          64.34%
+2026-10-12 19:00:34,297 - BankFraud - INFO - Test PR-AUC:          0.7965 | ROC-AUC: 0.9914
+2026-10-12 19:00:34,297 - BankFraud - INFO - Confusion Matrix:     TP=175, FP=28, FN=97, TN=20700
+2026-10-12 19:00:34,297 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:34,303 - BankFraud - INFO - Saved model to models/lgbm_model.pkl
+2026-10-12 19:00:34,303 - BankFraud - INFO - Saved optimal threshold config to models/optimal_threshold.json
+2026-10-12 19:00:34,306 - BankFraud - INFO - Saved feature importance to models/feature_importance.csv
+2026-10-12 19:00:34,306 - BankFraud - INFO - Saved metrics to models/metrics.json
+2026-10-12 19:00:34,330 - BankFraud - INFO - Saved customer baseline stats to models/customer_stats.parquet
+2026-10-12 19:00:34,330 - BankFraud - INFO - Model training & threshold optimization completed successfully!
+2026-10-12 19:00:34,334 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:34,335 - BankFraud - INFO - Starting Enterprise Real-Time Streaming Consumer...
+2026-10-12 19:00:34,335 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:34,406 - BankFraud - INFO - Loaded 20000 real-time streaming transactions.
+2026-10-12 19:00:34,427 - BankFraud - INFO - Loaded Enterprise Optimal Decision Threshold: 0.940 (target FPR <=0.50%)
+2026-10-12 19:00:34,841 - BankFraud - INFO - Streaming consumer generated data/alerts.parquet (20000 scored transactions).
+2026-10-12 19:00:34,846 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:34,846 - BankFraud - INFO - STREAMING INFERENCE FINANCIAL KPIS:
+2026-10-12 19:00:34,846 - BankFraud - INFO - Total Stream Transactions: 20000
+2026-10-12 19:00:34,846 - BankFraud - INFO - Real-Time Detection Rate:  31.96%
+2026-10-12 19:00:34,846 - BankFraud - INFO - Stream Precision:          95.89%
+2026-10-12 19:00:34,846 - BankFraud - INFO - Stream False Positive Rate: 0.015%
+2026-10-12 19:00:34,846 - BankFraud - INFO - Money Saved (Fraud Caught): €21,409.77
+2026-10-12 19:00:34,846 - BankFraud - INFO - Money Lost (Missed Fraud):  €16,310.76
+2026-10-12 19:00:34,846 - BankFraud - INFO - Money Retained Error (FPs): €555.94
+2026-10-12 19:00:34,846 - BankFraud - INFO - ==================================================
+2026-10-12 19:00:34,858 - BankFraud - INFO - Loaded 20000 alerts for scenario comparison (N = 2.0s).
+2026-10-12 19:00:34,874 - BankFraud - INFO - Pipeline executed successfully end-to-end!
+2026-10-12 19:01:00,372 - BankFraud - INFO - Starting End-to-End Bank Fraud Detection Pipeline
+2026-10-12 19:01:00,410 - BankFraud - INFO - Starting Enterprise synthetic data generation: 5000 customers, 100000 history txns, 20000 stream txns (fraud_rate=0.012)...
+2026-10-12 19:01:00,411 - BankFraud - INFO - Generating customer profiles...
+2026-10-12 19:01:00,485 - BankFraud - INFO - Saved 5000 customer profiles to data/raw/customer_profile.csv
+2026-10-12 19:01:00,485 - BankFraud - INFO - Generating customer devices...
+2026-10-12 19:01:00,693 - BankFraud - INFO - Saved 7091 devices to data/raw/device_data.json
+2026-10-12 19:01:00,694 - BankFraud - INFO - Generating transactions, locations, logs, and alerts...
+2026-10-12 19:01:00,721 - BankFraud - INFO - Generating historical transactions partition...
+2026-10-12 19:01:06,215 - BankFraud - INFO - Generating stream transactions partition...
+2026-10-12 19:01:07,411 - BankFraud - INFO - Saved 100000 rows to data/raw/transaction_history.parquet
+2026-10-12 19:01:07,411 - BankFraud - INFO - Saved 20000 rows to data/raw/transactions.csv
+2026-10-12 19:01:08,547 - BankFraud - INFO - Saved 120000 user locations to data/raw/user_location.json
+2026-10-12 19:01:08,588 - BankFraud - INFO - Saved 9758 access logs to data/raw/access_logs.jsonl
+2026-10-12 19:01:08,594 - BankFraud - INFO - Saved 835 previous fraud alerts to data/raw/previous_fraud_alerts.csv
+2026-10-12 19:01:08,594 - BankFraud - INFO - Enterprise synthetic generation successfully completed!
+2026-10-12 19:01:08,624 - BankFraud - INFO - Starting batch ingestion to Bronze...
+2026-10-12 19:01:33,538 - BankFraud - INFO - Batch ingestion to Bronze completed.
+2026-10-12 19:02:12,984 - BankFraud - INFO - Starting Silver layer processing...
+2026-10-12 19:02:13,070 - BankFraud - INFO - Cleaning customer profiles...
+2026-10-12 19:02:14,000 - BankFraud - INFO - Cleaning device data...
+2026-10-12 19:02:14,763 - BankFraud - INFO - Cleaning transactions...
+2026-10-12 19:02:25,342 - BankFraud - INFO - All data quality checks passed for Silver transactions.
+2026-10-12 19:02:28,909 - BankFraud - INFO - Processing user location into Silver...
+2026-10-12 19:02:32,288 - BankFraud - INFO - Processing access logs into Silver...
+2026-10-12 19:02:35,495 - BankFraud - INFO - Processing previous fraud alerts into Silver...
+2026-10-12 19:02:36,121 - BankFraud - INFO - Silver layer build completed.
+2026-10-12 19:02:36,564 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:36,564 - BankFraud - INFO - Starting Gold Layer Multi-Feature Engineering...
+2026-10-12 19:02:36,564 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:36,722 - BankFraud - INFO - Loaded 119999 transactions from Silver.
+2026-10-12 19:02:37,128 - BankFraud - INFO - Computing behavioral and customer profile risk features...
+2026-10-12 19:02:37,815 - BankFraud - INFO - Computing rolling window velocity features...
+2026-10-12 19:02:38,213 - BankFraud - INFO - Computing geographic distance and speed features...
+2026-10-12 19:02:38,843 - BankFraud - INFO - Saved Gold features table to data/gold/features (119999 rows, 46 columns)
+2026-10-12 19:02:38,844 - BankFraud - INFO - Gold layer feature engineering completed successfully!
+2026-10-12 19:02:38,854 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:38,854 - BankFraud - INFO - Starting Enterprise Model Training & Threshold Optimization...
+2026-10-12 19:02:38,855 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:38,887 - BankFraud - INFO - Loaded 119999 transactions from Gold layer.
+2026-10-12 19:02:38,962 - BankFraud - INFO - Train split: 95999 rows (1187 frauds, 1.24%)
+2026-10-12 19:02:38,962 - BankFraud - INFO - Test split:  24000 rows (273 frauds, 1.14%)
+2026-10-12 19:02:39,286 - BankFraud - INFO - Optimizing decision threshold for False Positive avoidance (target FPR <= 0.50%)...
+2026-10-12 19:02:39,453 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:39,453 - BankFraud - INFO - OPTIMAL ENTERPRISE THRESHOLD: 0.920
+2026-10-12 19:02:39,453 - BankFraud - INFO - Test Precision:       98.60%
+2026-10-12 19:02:39,453 - BankFraud - INFO - Test False Pos. Rate: 0.013% (Target: <=0.50%)
+2026-10-12 19:02:39,454 - BankFraud - INFO - Test Recall:          77.29%
+2026-10-12 19:02:39,454 - BankFraud - INFO - Test PR-AUC:          0.8711 | ROC-AUC: 0.9883
+2026-10-12 19:02:39,454 - BankFraud - INFO - Confusion Matrix:     TP=211, FP=3, FN=62, TN=23724
+2026-10-12 19:02:39,454 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:39,460 - BankFraud - INFO - Saved model to models/lgbm_model.pkl
+2026-10-12 19:02:39,461 - BankFraud - INFO - Saved optimal threshold config to models/optimal_threshold.json
+2026-10-12 19:02:39,463 - BankFraud - INFO - Saved feature importance to models/feature_importance.csv
+2026-10-12 19:02:39,464 - BankFraud - INFO - Saved metrics to models/metrics.json
+2026-10-12 19:02:39,480 - BankFraud - INFO - Saved customer baseline stats to models/customer_stats.parquet
+2026-10-12 19:02:39,480 - BankFraud - INFO - Model training & threshold optimization completed successfully!
+2026-10-12 19:02:39,486 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:39,486 - BankFraud - INFO - Starting Enterprise Real-Time Streaming Consumer...
+2026-10-12 19:02:39,486 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:39,561 - BankFraud - INFO - Loaded 20000 real-time streaming transactions.
+2026-10-12 19:02:39,582 - BankFraud - INFO - Loaded Enterprise Optimal Decision Threshold: 0.920 (target FPR <=0.50%)
+2026-10-12 19:02:40,070 - BankFraud - INFO - Streaming consumer generated data/alerts.parquet (20000 scored transactions).
+2026-10-12 19:02:40,077 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:40,077 - BankFraud - INFO - STREAMING INFERENCE FINANCIAL KPIS:
+2026-10-12 19:02:40,077 - BankFraud - INFO - Total Stream Transactions: 20000
+2026-10-12 19:02:40,077 - BankFraud - INFO - Real-Time Detection Rate:  52.97%
+2026-10-12 19:02:40,077 - BankFraud - INFO - Stream Precision:          100.00%
+2026-10-12 19:02:40,077 - BankFraud - INFO - Stream False Positive Rate: 0.000%
+2026-10-12 19:02:40,077 - BankFraud - INFO - Money Saved (Fraud Caught): €27,526.49
+2026-10-12 19:02:40,077 - BankFraud - INFO - Money Lost (Missed Fraud):  €10,194.04
+2026-10-12 19:02:40,077 - BankFraud - INFO - Money Retained Error (FPs): €0.00
+2026-10-12 19:02:40,077 - BankFraud - INFO - ==================================================
+2026-10-12 19:02:40,090 - BankFraud - INFO - Loaded 20000 alerts for scenario comparison (N = 2.0s).
+2026-10-12 19:02:40,103 - BankFraud - INFO - Pipeline executed successfully end-to-end!
+2026-10-12 19:03:47,626 - BankFraud - INFO - ==================================================
+2026-10-12 19:03:47,626 - BankFraud - INFO - Starting Enterprise Real-Time Streaming Consumer...
+2026-10-12 19:03:47,626 - BankFraud - INFO - ==================================================
+2026-10-12 19:03:47,672 - BankFraud - INFO - Loaded 20000 real-time streaming transactions.
+2026-10-12 19:03:48,329 - BankFraud - INFO - Loaded Enterprise Optimal Decision Threshold: 0.920 (target FPR <=0.50%)
+2026-10-12 19:03:48,764 - BankFraud - INFO - Streaming consumer generated data/alerts.parquet (20000 scored transactions).
+2026-10-12 19:03:48,769 - BankFraud - INFO - ==================================================
+2026-10-12 19:03:48,769 - BankFraud - INFO - STREAMING INFERENCE FINANCIAL KPIS:
+2026-10-12 19:03:48,769 - BankFraud - INFO - Total Stream Transactions: 20000
+2026-10-12 19:03:48,769 - BankFraud - INFO - Real-Time Detection Rate:  52.97%
+2026-10-12 19:03:48,770 - BankFraud - INFO - Stream Precision:          100.00%
+2026-10-12 19:03:48,770 - BankFraud - INFO - Stream False Positive Rate: 0.000%
+2026-10-12 19:03:48,770 - BankFraud - INFO - Money Saved (Fraud Caught): €27,526.49
+2026-10-12 19:03:48,770 - BankFraud - INFO - Money Lost (Missed Fraud):  €10,194.04
+2026-10-12 19:03:48,770 - BankFraud - INFO - Money Retained Error (FPs): €0.00
+2026-10-12 19:03:48,770 - BankFraud - INFO - ==================================================
+2026-10-12 19:03:49,419 - BankFraud - INFO - Loaded 20000 alerts for scenario comparison (N = 2.0s).
+2026-10-12 19:04:23,070 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:23,070 - BankFraud - INFO - Starting Enterprise Model Training & Threshold Optimization...
+2026-10-12 19:04:23,070 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:23,119 - BankFraud - INFO - Loaded 119999 transactions from Gold layer.
+2026-10-12 19:04:23,180 - BankFraud - INFO - Train split: 95999 rows (1187 frauds, 1.24%)
+2026-10-12 19:04:23,180 - BankFraud - INFO - Test split:  24000 rows (273 frauds, 1.14%)
+2026-10-12 19:04:23,469 - BankFraud - INFO - Optimizing decision threshold for False Positive avoidance (target FPR <= 0.50%)...
+2026-10-12 19:04:23,607 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:23,607 - BankFraud - INFO - OPTIMAL ENTERPRISE THRESHOLD: 0.890
+2026-10-12 19:04:23,608 - BankFraud - INFO - Test Precision:       97.27%
+2026-10-12 19:04:23,608 - BankFraud - INFO - Test False Pos. Rate: 0.025% (Target: <=0.50%)
+2026-10-12 19:04:23,608 - BankFraud - INFO - Test Recall:          78.39%
+2026-10-12 19:04:23,608 - BankFraud - INFO - Test PR-AUC:          0.8711 | ROC-AUC: 0.9883
+2026-10-12 19:04:23,608 - BankFraud - INFO - Confusion Matrix:     TP=214, FP=6, FN=59, TN=23721
+2026-10-12 19:04:23,608 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:23,613 - BankFraud - INFO - Saved model to models/lgbm_model.pkl
+2026-10-12 19:04:37,729 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:37,729 - BankFraud - INFO - Starting Enterprise Model Training & Threshold Optimization...
+2026-10-12 19:04:37,729 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:37,783 - BankFraud - INFO - Loaded 119999 transactions from Gold layer.
+2026-10-12 19:04:37,845 - BankFraud - INFO - Train split: 95999 rows (1187 frauds, 1.24%)
+2026-10-12 19:04:37,845 - BankFraud - INFO - Test split:  24000 rows (273 frauds, 1.14%)
+2026-10-12 19:04:38,137 - BankFraud - INFO - Optimizing decision threshold for False Positive avoidance (target FPR <= 0.50%)...
+2026-10-12 19:04:38,273 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:38,274 - BankFraud - INFO - OPTIMAL ENTERPRISE THRESHOLD: 0.890
+2026-10-12 19:04:38,274 - BankFraud - INFO - Test Precision:       97.27%
+2026-10-12 19:04:38,274 - BankFraud - INFO - Test False Pos. Rate: 0.025% (Target: <=0.50%)
+2026-10-12 19:04:38,274 - BankFraud - INFO - Test Recall:          78.39%
+2026-10-12 19:04:38,274 - BankFraud - INFO - Test PR-AUC:          0.8711 | ROC-AUC: 0.9883
+2026-10-12 19:04:38,274 - BankFraud - INFO - Confusion Matrix:     TP=214, FP=6, FN=59, TN=23721
+2026-10-12 19:04:38,274 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:38,279 - BankFraud - INFO - Saved model to models/lgbm_model.pkl
+2026-10-12 19:04:38,280 - BankFraud - INFO - Saved optimal threshold config to models/optimal_threshold.json
+2026-10-12 19:04:38,284 - BankFraud - INFO - Saved feature importance to models/feature_importance.csv
+2026-10-12 19:04:38,284 - BankFraud - INFO - Saved metrics to models/metrics.json
+2026-10-12 19:04:38,301 - BankFraud - INFO - Saved customer baseline stats to models/customer_stats.parquet
+2026-10-12 19:04:38,301 - BankFraud - INFO - Model training & threshold optimization completed successfully!
+2026-10-12 19:04:44,422 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:44,422 - BankFraud - INFO - Starting Enterprise Real-Time Streaming Consumer...
+2026-10-12 19:04:44,422 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:44,469 - BankFraud - INFO - Loaded 20000 real-time streaming transactions.
+2026-10-12 19:04:45,119 - BankFraud - INFO - Loaded Enterprise Optimal Decision Threshold: 0.890 (target FPR <=0.50%)
+2026-10-12 19:04:45,541 - BankFraud - INFO - Streaming consumer generated data/alerts.parquet (20000 scored transactions).
+2026-10-12 19:04:45,550 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:45,551 - BankFraud - INFO - STREAMING INFERENCE FINANCIAL KPIS:
+2026-10-12 19:04:45,551 - BankFraud - INFO - Total Stream Transactions: 20000
+2026-10-12 19:04:45,551 - BankFraud - INFO - Real-Time Detection Rate:  53.88%
+2026-10-12 19:04:45,551 - BankFraud - INFO - Stream Precision:          100.00%
+2026-10-12 19:04:45,551 - BankFraud - INFO - Stream False Positive Rate: 0.000%
+2026-10-12 19:04:45,551 - BankFraud - INFO - Money Saved (Fraud Caught): €28,165.35
+2026-10-12 19:04:45,551 - BankFraud - INFO - Money Lost (Missed Fraud):  €9,555.18
+2026-10-12 19:04:45,551 - BankFraud - INFO - Money Retained Error (FPs): €0.00
+2026-10-12 19:04:45,551 - BankFraud - INFO - ==================================================
+2026-10-12 19:04:46,215 - BankFraud - INFO - Loaded 20000 alerts for scenario comparison (N = 2.0s).
+2026-10-12 19:06:11,351 - BankFraud - INFO - Loaded LightGBM model for API inference.
+2026-10-12 19:06:19,723 - BankFraud - WARNING - Quality Check Failed: Null values found in column 'id'
+2026-10-12 19:06:21,182 - BankFraud - WARNING - Quality Check Failed: Negative amounts found in column 'amount'
+2026-10-12 19:06:37,682 - BankFraud - INFO - ==================================================
+2026-10-12 19:06:37,682 - BankFraud - INFO - Starting Enterprise Real-Time Streaming Consumer...
+2026-10-12 19:06:37,682 - BankFraud - INFO - ==================================================
+2026-10-12 19:06:37,727 - BankFraud - INFO - Loaded 20000 real-time streaming transactions.
+2026-10-12 19:06:38,344 - BankFraud - INFO - Loaded Enterprise Optimal Decision Threshold: 0.890 (target FPR <=0.50%)
+2026-10-12 19:06:38,766 - BankFraud - INFO - Streaming consumer generated data/alerts.parquet (20000 scored transactions).
+2026-10-12 19:06:38,772 - BankFraud - INFO - ==================================================
+2026-10-12 19:06:38,772 - BankFraud - INFO - STREAMING INFERENCE FINANCIAL KPIS:
+2026-10-12 19:06:38,772 - BankFraud - INFO - Total Stream Transactions: 20000
+2026-10-12 19:06:38,772 - BankFraud - INFO - Real-Time Detection Rate:  53.88%
+2026-10-12 19:06:38,772 - BankFraud - INFO - Stream Precision:          100.00%
+2026-10-12 19:06:38,772 - BankFraud - INFO - Stream False Positive Rate: 0.000%
+2026-10-12 19:06:38,772 - BankFraud - INFO - Money Saved (Fraud Caught): €28,165.35
+2026-10-12 19:06:38,772 - BankFraud - INFO - Money Lost (Missed Fraud):  €9,555.18
+2026-10-12 19:06:38,772 - BankFraud - INFO - Money Retained Error (FPs): €0.00
+2026-10-12 19:06:38,772 - BankFraud - INFO - ==================================================
+2026-10-12 19:06:43,772 - BankFraud - INFO - Loaded 20000 alerts for scenario comparison (N = 2.0s).
+2026-10-12 19:09:05,359 - BankFraud - INFO - ==================================================
+2026-10-12 19:09:05,359 - BankFraud - INFO - Starting Enterprise Real-Time Streaming Consumer...
+2026-10-12 19:09:05,360 - BankFraud - INFO - ==================================================
+2026-10-12 19:09:05,403 - BankFraud - INFO - Loaded 20000 real-time streaming transactions.
+2026-10-12 19:09:05,408 - BankFraud - INFO - Loaded Enterprise Optimal Decision Threshold: 0.890 (target FPR <=0.50%)
+2026-10-12 19:09:06,435 - BankFraud - INFO - Streaming consumer generated data/alerts.parquet (20000 scored transactions).
+2026-10-12 19:09:06,443 - BankFraud - INFO - ==================================================
+2026-10-12 19:09:06,443 - BankFraud - INFO - STREAMING INFERENCE FINANCIAL KPIS:
+2026-10-12 19:09:06,443 - BankFraud - INFO - Total Stream Transactions: 20000
+2026-10-12 19:09:06,444 - BankFraud - INFO - Real-Time Detection Rate:  79.91%
+2026-10-12 19:09:06,444 - BankFraud - INFO - Stream Precision:          97.22%
+2026-10-12 19:09:06,444 - BankFraud - INFO - Stream False Positive Rate: 0.025%
+2026-10-12 19:09:06,444 - BankFraud - INFO - Money Saved (Fraud Caught): €34,359.13
+2026-10-12 19:09:06,444 - BankFraud - INFO - Money Lost (Missed Fraud):  €3,361.40
+2026-10-12 19:09:06,444 - BankFraud - INFO - Money Retained Error (FPs): €561.92
+2026-10-12 19:09:06,444 - BankFraud - INFO - ==================================================
+2026-10-12 19:09:12,155 - BankFraud - INFO - Loaded 20000 alerts for scenario comparison (N = 2.0s).
+2026-10-12 19:09:20,358 - BankFraud - INFO - Loaded LightGBM model for API inference.
+2026-10-12 19:09:28,840 - BankFraud - WARNING - Quality Check Failed: Null values found in column 'id'
+2026-10-12 19:09:30,281 - BankFraud - WARNING - Quality Check Failed: Negative amounts found in column 'amount'
