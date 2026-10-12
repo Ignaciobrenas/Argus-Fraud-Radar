@@ -13,3 +13,5 @@ pytest
 joblib
 fastapi
 uvicorn
+httpx
+

@@ -18,8 +18,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code
 COPY . .
 
-# Set PYTHONPATH
-ENV PYTHONPATH=/app/src
+# Set PYTHONPATH to project root
+ENV PYTHONPATH=/app
 
 # Default command runs the entire pipeline
 CMD ["python", "main.py"]
+
