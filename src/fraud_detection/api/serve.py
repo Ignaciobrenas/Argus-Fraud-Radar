@@ -21,9 +21,24 @@ class TransactionInput(BaseModel):
     transaction_id: str
     customer_id: str
     amount: float
-    amount_zscore_customer: float
-    age: int
-    avg_monthly_spend: float
+    amount_zscore_customer: float = 0.0
+    amount_to_avg_spend_ratio: float = 1.0
+    distance_from_home_km: float = 0.0
+    geo_distance_ip_gps_km: float = 0.0
+    travel_speed_kmh: float = 0.0
+    txn_count_10min: int = 1
+    txn_count_1h: int = 1
+    amount_sum_1h: float = 0.0
+    is_new_device: int = 0
+    is_foreign_country: int = 0
+    failed_logins_before_txn: int = 0
+    hour_of_day: int = 12
+    is_weekend: int = 0
+    is_night: int = 0
+    customer_risk_level: int = 0
+    previous_alerts_count: int = 0
+    age: int = 35
+    avg_monthly_spend: float = 800.0
 
 class FraudPredictionResponse(BaseModel):
     transaction_id: str
@@ -39,17 +54,22 @@ def predict_fraud(transaction: TransactionInput):
     if clf is None:
         raise HTTPException(status_code=503, detail="Model not loaded. Please train the model first.")
     
-    # Extract features in the order expected by the model
-    features = ["amount", "amount_zscore_customer", "age", "avg_monthly_spend"]
-    df_features = pd.DataFrame([[
-        transaction.amount,
-        transaction.amount_zscore_customer,
-        transaction.age,
-        transaction.avg_monthly_spend
-    ]], columns=features)
+    # Extract features in the exact order expected by the model
+    from src.fraud_detection.models.train import MODEL_FEATURES
+    row_data = [getattr(transaction, feat, 0.0) for feat in MODEL_FEATURES]
+    df_features = pd.DataFrame([row_data], columns=MODEL_FEATURES)
     
+    import json
+    optimal_thresh = 0.50
+    if os.path.exists("models/optimal_threshold.json"):
+        try:
+            with open("models/optimal_threshold.json", "r") as f:
+                optimal_thresh = float(json.load(f).get("optimal_threshold", 0.50))
+        except Exception:
+            pass
+
     score = float(clf.predict_proba(df_features)[0, 1])
-    is_alert = score > 0.5
+    is_alert = bool(score >= optimal_thresh)
     
     logger.info(f"Scored transaction {transaction.transaction_id}: {score:.4f} (Alert: {is_alert})")
     
