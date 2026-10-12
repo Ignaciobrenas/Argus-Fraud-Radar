@@ -153,11 +153,21 @@ The data generator injects a rigorous mixture of **obvious heuristic violations*
 | `phishing_mule_transfer` | **Phishing Mule Transfer** | Web portal cloning leading to instant evacuation toward domestic money mule accounts. | ❌ 0% | ✅ **Risk Score Code** |
 | `hard_subtle_fraud` | **Low-and-Slow Camouflage** | Moderate amounts (80 € - 120 €) intentionally avoiding static heuristic thresholds. | ❌ 0% | ✅ **19-Dim Tree** |
 
+<div align="center">
+  <img src="docs/figures/03_threat_radar_fraud_patterns.png" alt="ARGUS Multi-Vector Threat Intelligence" width="100%">
+  <p><em>Figure: Multi-Vector Threat Intelligence Radar comparing Rule Heuristics vs ARGUS Machine Learning across all 8 attack vectors</em></p>
+</div>
+
 ---
 
 ## 🖥️ Streamlit Command Center (Dashboard Demo & Layout)
 
 The interactive dashboard ([`src/fraud_detection/dashboard/app.py`](src/fraud_detection/dashboard/app.py)) provides security analysts and risk officers with real-time situational awareness:
+
+<div align="center">
+  <img src="docs/figures/01_executive_kpi_command_center.png" alt="ARGUS Fraud Radar Executive Control Center" width="100%">
+  <p><em>Figure: Live Executive Control Center & Financial Loss Mitigation Breakdown running with SLA ≤ 2.0s</em></p>
+</div>
 
 ```
 ========================================================================================================
@@ -194,9 +204,7 @@ The interactive dashboard ([`src/fraud_detection/dashboard/app.py`](src/fraud_de
 ========================================================================================================
 ```
 
-### 📸 Live Telemetry & Control Center Screenshots
-
-The interactive platform provides 6 dedicated operational views designed for enterprise fraud risk analysts and academic evaluation:
+### 📸 Full Telemetry & Specialized Operational Views
 
 <details open>
 <summary><b>1. Executive KPI & Financial ROI Command Center</b></summary>
@@ -209,7 +217,7 @@ Real-time SLA speedometer gauge (79.91% vs 70.0% target), €34,359.13 capital s
 <details>
 <summary><b>2. Scenarios Benchmark Comparison (Scenario A vs B vs C)</b></summary>
 <br>
-Academic evaluation proving the superiority of real-time streaming ML over nightly batch and heuristic engines with exact capital protection audit.
+Academic evaluation proving the superiority of real-time streaming ML over nightly batch and heuristic engines with exact capital protection audit and multi-dimensional radar.
 
 ![Scenarios Benchmark Comparison](docs/figures/02_scenarios_benchmark_comparison.png)
 </details>
@@ -251,6 +259,11 @@ Official academic synthesis for STUCOM Pelai and UNITA Erasmus+ BIP, including K
 ## 📊 Comparative Experimental Benchmarks (Scenarios A, B & C)
 
 The platform evaluates three concurrent operational scenarios across **20,000 stream transactions** ($N = 2.0\text{s}$):
+
+<div align="center">
+  <img src="docs/figures/02_scenarios_benchmark_comparison.png" alt="ARGUS Scenarios Benchmark Comparison" width="100%">
+  <p><em>Figure: Quantitative Benchmark comparing Batch Rules (Scenario A), Streaming Rules (Scenario B), and ARGUS Streaming ML (Scenario C)</em></p>
+</div>
 
 | Scenario | Mode | Scoring Engine | Mean Latency | Real-Time KPI (%) | Total Recall (%) | Precision (%) | False Positives | Money Saved |
 |---|---|---|---|---|---|---|---|---|
