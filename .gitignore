@@ -1,6 +1,87 @@
-data/
-.venv/
+# ==========================================
+# Bank Fraud Detection — .gitignore
+# ==========================================
+
+# --- Python Bytecode & Packaging ---
 __pycache__/
-.ipynb_checkpoints/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Data Lake & Tabular Datasets ---
+# Exclude raw, bronze, silver, gold, alerts and archive data partitions
+data/
+data/*
+*.parquet
+!models/*.parquet
+
+# --- Serialized Models & Heavy Binaries ---
 *.pkl
+*.pickle
+*.joblib
 *.model
+*.onnx
+*.h5
+*.pt
+*.pth
+models/*.pkl
+models/*.joblib
+
+# --- Jupyter Notebook Artifacts ---
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# --- Testing, Coverage & QA ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+
+# --- PySpark / Hadoop / Hive Artifacts ---
+derby.log
+metastore_db/
+spark-warehouse/
+hadoop/
+
+# --- Runtime Logs ---
+logs/*.log
+*.log
+!logs/.gitkeep
+
+# --- Environment Secrets & Credentials ---
+.env
+.env.*
+!.env.example
+
+# --- IDEs, Text Editors & Workspaces ---
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Operating System Files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
